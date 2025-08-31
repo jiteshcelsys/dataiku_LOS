@@ -1,0 +1,169 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Container,
+  Paper,
+  Typography,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  LinearProgress,
+  Alert,
+  Card,
+  CardContent
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useApplication } from '../../context/ApplicationContext';
+import { CheckCircle, Clock, FileText } from 'lucide-react';
+
+const applicationSteps = [
+  { label: 'Submitted', description: 'Application submitted successfully' },
+  { label: 'Under Review', description: 'Our team has begun initial underwriting assessment' },
+  { label: 'KYC/Credit Check', description: 'Background and credit verification in progress' },
+  { label: 'Decision', description: 'Final decision pending' }
+];
+
+export const ApplicationTracker: React.FC = () => {
+  const navigate = useNavigate();
+  const { currentApplication, offers } = useApplication();
+  const [currentStep, setCurrentStep] = useState(1);
+
+  useEffect(() => {
+    if (currentApplication?.status === 'approved') {
+      // Simulate progression through steps
+      const timer1 = setTimeout(() => setCurrentStep(2), 1000);
+      const timer2 = setTimeout(() => setCurrentStep(3), 2000);
+      const timer3 = setTimeout(() => setCurrentStep(4), 3000);
+      
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
+    }
+  }, [currentApplication?.status]);
+
+  const handleCheckStatus = () => {
+    if (currentApplication?.status === 'approved') {
+      navigate('/application/approved');
+    }
+  };
+
+  if (!currentApplication) {
+    navigate('/loan-selection');
+    return null;
+  }
+
+  const currentOffer = offers.find(offer => offer.applicationId === currentApplication.id);
+
+  return (
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Paper elevation={2} sx={{ p: 4 }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+          Application Tracker
+        </Typography>
+
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+            Application Progress
+          </Typography>
+          
+          <Stepper activeStep={currentStep} orientation="vertical">
+            {applicationSteps.map((step, index) => (
+              <Step key={step.label}>
+                <StepLabel 
+                  StepIconComponent={({ active, completed }) => (
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      width: 24,
+                      height: 24,
+                      borderRadius: '50%',
+                      bgcolor: completed ? '#4caf50' : active ? '#1976d2' : '#e0e0e0',
+                      color: 'white'
+                    }}>
+                      {completed ? <CheckCircle size={16} /> : index + 1}
+                    </Box>
+                  )}
+                >
+                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                    {step.label}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {step.description}
+                  </Typography>
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Box>
+
+        <Card sx={{ mb: 4 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+              Application Status
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography variant="body1" sx={{ fontWeight: 500, mr: 2 }}>
+                Under Review
+              </Typography>
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                bgcolor: '#fff3cd', 
+                color: '#856404',
+                px: 1,
+                py: 0.5,
+                borderRadius: 1
+              }}>
+                <Clock size={16} className="mr-1" />
+                <Typography variant="body2">In Progress</Typography>
+              </Box>
+            </Box>
+            <LinearProgress 
+              variant="determinate" 
+              value={75} 
+              sx={{ mb: 1, height: 8, borderRadius: 1 }}
+            />
+            <Typography variant="body2" color="text.secondary">
+              Loans approved in an average of 2-4 days. Each loan application is unique and result times may vary.
+            </Typography>
+          </CardContent>
+        </Card>
+
+        <Alert severity="info" sx={{ mb: 4 }}>
+          <Typography variant="body2">
+            If you have any questions or require assistance with your application, we're ready to help!
+          </Typography>
+          <Box sx={{ mt: 1 }}>
+            <Typography variant="body2">
+              📧 support@celestial.com
+            </Typography>
+            <Typography variant="body2">
+              📞 1 (800) 123-4567
+            </Typography>
+          </Box>
+        </Alert>
+
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          Need Help?
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+          If you have any questions or require assistance with your application, we're ready to help.
+        </Typography>
+
+        <Button
+          variant="contained"
+          onClick={handleCheckStatus}
+          size="large"
+          fullWidth
+          sx={{ py: 1.5 }}
+        >
+          Check Application Status
+        </Button>
+      </Paper>
+    </Container>
+  );
+};
