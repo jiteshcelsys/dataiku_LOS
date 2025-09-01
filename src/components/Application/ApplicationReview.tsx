@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Container,
   Paper,
@@ -11,12 +11,18 @@ import {
   Card,
   CardContent,
   Grid,
-  Divider
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useApplication } from '../../context/ApplicationContext';
+  Divider,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useApplication } from "../../context/ApplicationContext";
 
-const steps = ['Personal Details', 'Contact Info', 'Employment', 'Documents', 'Review'];
+const steps = [
+  "Personal Details",
+  "Contact Info",
+  "Employment",
+  "Documents",
+  "Review",
+];
 
 export const ApplicationReview: React.FC = () => {
   const navigate = useNavigate();
@@ -24,15 +30,15 @@ export const ApplicationReview: React.FC = () => {
 
   const handleSubmit = () => {
     submitApplication();
-    navigate('/application/tracker');
+    navigate("/application/tracker");
   };
 
   const handleBack = () => {
-    navigate('/application/documents');
+    navigate("/application/documents");
   };
 
   if (!currentApplication) {
-    navigate('/loan-selection');
+    navigate("/loan-selection");
     return null;
   }
 
@@ -61,15 +67,20 @@ export const ApplicationReview: React.FC = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                   Personal Details
                 </Typography>
-                <Box sx={{ '& > *': { mb: 1 } }}>
+                <Box sx={{ "& > *": { mb: 1 } }}>
                   <Typography variant="body2">
-                    <strong>Name:</strong> {currentApplication.personalDetails.firstName} {currentApplication.personalDetails.middleName} {currentApplication.personalDetails.lastName}
+                    <strong>Name:</strong>{" "}
+                    {currentApplication.personalDetails.firstName}{" "}
+                    {currentApplication.personalDetails.middleName}{" "}
+                    {currentApplication.personalDetails.lastName}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Date of Birth:</strong> {currentApplication.personalDetails.dateOfBirth}
+                    <strong>Date of Birth:</strong>{" "}
+                    {currentApplication.personalDetails.dateOfBirth}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>SSN:</strong> ***-**-{currentApplication.personalDetails.ssn.slice(-4)}
+                    <strong>SSN:</strong> ***-**-
+                    {currentApplication.personalDetails.ssn.slice(-4)}
                   </Typography>
                 </Box>
               </CardContent>
@@ -82,15 +93,21 @@ export const ApplicationReview: React.FC = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                   Contact Information
                 </Typography>
-                <Box sx={{ '& > *': { mb: 1 } }}>
+                <Box sx={{ "& > *": { mb: 1 } }}>
                   <Typography variant="body2">
-                    <strong>Email:</strong> {currentApplication.contactInfo.email}
+                    <strong>Email:</strong>{" "}
+                    {currentApplication.contactInfo.email}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Phone:</strong> {currentApplication.contactInfo.phone}
+                    <strong>Phone:</strong>{" "}
+                    {currentApplication.contactInfo.phone}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Address:</strong> {currentApplication.contactInfo.address}, {currentApplication.contactInfo.city}, {currentApplication.contactInfo.state} {currentApplication.contactInfo.zipCode}
+                    <strong>Address:</strong>{" "}
+                    {currentApplication.contactInfo.address},{" "}
+                    {currentApplication.contactInfo.city},{" "}
+                    {currentApplication.contactInfo.state}{" "}
+                    {currentApplication.contactInfo.zipCode}
                   </Typography>
                 </Box>
               </CardContent>
@@ -103,16 +120,19 @@ export const ApplicationReview: React.FC = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                   Employment & Income
                 </Typography>
-                <Box sx={{ '& > *': { mb: 1 } }}>
+                <Box sx={{ "& > *": { mb: 1 } }}>
                   <Typography variant="body2">
-                    <strong>Employment Status:</strong> {currentApplication.employmentInfo.status}
+                    <strong>Employment Status:</strong>{" "}
+                    {currentApplication.employmentInfo.status}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Primary Income Source:</strong> {currentApplication.employmentInfo.primaryIncomeSource}
+                    <strong>Primary Income Source:</strong>{" "}
+                    {currentApplication.employmentInfo.primaryIncomeSource}
                   </Typography>
                   {currentApplication.employmentInfo.annualIncome && (
                     <Typography variant="body2">
-                      <strong>Annual Income:</strong> ${currentApplication.employmentInfo.annualIncome.toLocaleString()}
+                      <strong>Annual Income:</strong> $
+                      {currentApplication.employmentInfo.annualIncome.toLocaleString()}
                     </Typography>
                   )}
                 </Box>
@@ -127,7 +147,10 @@ export const ApplicationReview: React.FC = () => {
                   Documents ({currentApplication.documents.length} uploaded)
                 </Typography>
                 {currentApplication.documents.map((doc) => (
-                  <Box key={doc.id} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <Box
+                    key={doc.id}
+                    sx={{ display: "flex", alignItems: "center", mb: 1 }}
+                  >
                     <FileText size={16} className="mr-2" />
                     <Typography variant="body2">
                       {doc.name} ({(doc.size / 1024).toFixed(1)} KB)
@@ -139,7 +162,7 @@ export const ApplicationReview: React.FC = () => {
           </Grid>
         </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
           <Button
             variant="outlined"
             onClick={handleBack}
@@ -152,7 +175,11 @@ export const ApplicationReview: React.FC = () => {
             variant="contained"
             onClick={handleSubmit}
             size="large"
-            sx={{ px: 4, bgcolor: '#4caf50', '&:hover': { bgcolor: '#388e3c' } }}
+            sx={{
+              px: 4,
+              bgcolor: "#4caf50",
+              "&:hover": { bgcolor: "#388e3c" },
+            }}
           >
             Submit Application
           </Button>

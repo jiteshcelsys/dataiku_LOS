@@ -1,36 +1,45 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './context/AuthContext';
-import { ApplicationProvider } from './context/ApplicationContext';
-import { Layout } from './components/Layout/Layout';
-import { ProtectedRoute } from './components/Auth/ProtectedRoute';
-import { HomePage } from './components/Home/HomePage';
-import { LoginForm } from './components/Auth/LoginForm';
-import { RegisterForm } from './components/Auth/RegisterForm';
-import { LoanSelection } from './components/LoanSelection/LoanSelection';
-import { PersonalDetailsForm } from './components/Application/PersonalDetailsForm';
-import { ContactInfoForm } from './components/Application/ContactInfoForm';
-import { EmploymentForm } from './components/Application/EmploymentForm';
-import { DocumentUpload } from './components/Application/DocumentUpload';
-import { ApplicationReview } from './components/Application/ApplicationReview';
-import { ApplicationTracker } from './components/Application/ApplicationTracker';
-import { ApplicationApproved } from './components/Application/ApplicationApproved';
-import { UserDashboard } from './components/Dashboard/UserDashboard';
-import { AdminDashboard } from './components/Dashboard/AdminDashboard';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
+import { ApplicationProvider } from "./context/ApplicationContext";
+import { Layout } from "./components/Layout/Layout";
+import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
+import { HomePage } from "./components/Home/HomePage";
+import { LoginForm } from "./components/Auth/LoginForm";
+import { RegisterForm } from "./components/Auth/RegisterForm";
+import { LoanSelection } from "./components/LoanSelection/LoanSelection";
+import { PersonalDetailsForm } from "./components/Application/PersonalDetailsForm";
+import { ContactInfoForm } from "./components/Application/ContactInfoForm";
+import { EmploymentForm } from "./components/Application/EmploymentForm";
+import { DocumentUpload } from "./components/Application/DocumentUpload";
+import { ApplicationReview } from "./components/Application/ApplicationReview";
+import { ApplicationTracker } from "./components/Application/ApplicationTracker";
+import { ApplicationApproved } from "./components/Application/ApplicationApproved";
+import { UserDashboard } from "./components/Dashboard/UserDashboard";
+import { AdminDashboard } from "./components/Dashboard/AdminDashboard";
+import { ApplicationsList } from "./components/Admin/ApplicationsList";
+import { ApplicationDetails } from "./components/Admin/ApplicationDetails";
+import { AlertInbox } from "./components/Admin/AlertInbox";
+import { AdminLayout } from "./components/Layout/AdminLayout";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: "#1976d2",
     },
     secondary: {
-      main: '#0097a7',
+      main: "#0097a7",
     },
     background: {
-      default: '#f5f5f5',
+      default: "#f5f5f5",
     },
   },
   typography: {
@@ -46,7 +55,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: "none",
           fontWeight: 600,
           borderRadius: 8,
         },
@@ -56,7 +65,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         },
       },
     },
@@ -77,41 +86,81 @@ function App() {
       <AuthProvider>
         <ApplicationProvider>
           <Router>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/register" element={<RegisterForm />} />
-                
-                {/* Protected Routes */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <DashboardRouter />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/loan-selection" element={
-                  <ProtectedRoute>
-                    <LoanSelection />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/application/*" element={
-                  <ProtectedRoute>
-                    <ApplicationRoutes />
-                  </ProtectedRoute>
-                } />
+            <Routes>
+              {/* Public Routes */}
+              <Route
+                path="/"
+                element={
+                  <Layout>
+                    <HomePage />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <Layout>
+                    <LoginForm />
+                  </Layout>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <Layout>
+                    <RegisterForm />
+                  </Layout>
+                }
+              />
 
-                {/* Admin Routes */}
-                <Route path="/admin/*" element={
-                  <ProtectedRoute requireRole="admin">
-                    <AdminDashboard />
+              {/* User Protected Routes */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <DashboardRouter />
+                    </Layout>
                   </ProtectedRoute>
-                } />
-                
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Layout>
+                }
+              />
+
+              <Route
+                path="/loan-selection"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <LoanSelection />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/application/*"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <ApplicationRoutes />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Admin Routes */}
+              <Route
+                path="/admin/*"
+                element={
+                  <ProtectedRoute requireRole="admin">
+                    <AdminLayout>
+                      <AdminRoutes />
+                    </AdminLayout>
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
           </Router>
         </ApplicationProvider>
       </AuthProvider>
@@ -122,12 +171,29 @@ function App() {
 // Dashboard Router Component
 const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
-  
-  if (user?.role === 'admin') {
+
+  if (user?.role === "admin") {
     return <AdminDashboard />;
   }
-  
+
   return <UserDashboard />;
+};
+
+// Admin Routes Component
+const AdminRoutes: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="applications" element={<ApplicationsList />} />
+      <Route path="applications/:id" element={<ApplicationDetails />} />
+      <Route path="alerts" element={<AlertInbox />} />
+      <Route path="alerts/inbox" element={<AlertInbox />} />
+      <Route path="candidates" element={<div>Candidates Page</div>} />
+      <Route path="tasks" element={<div>Tasks Page</div>} />
+      <Route path="settings" element={<div>Settings Page</div>} />
+      <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+    </Routes>
+  );
 };
 
 // Application Routes Component
@@ -141,7 +207,10 @@ const ApplicationRoutes: React.FC = () => {
       <Route path="review" element={<ApplicationReview />} />
       <Route path="tracker" element={<ApplicationTracker />} />
       <Route path="approved" element={<ApplicationApproved />} />
-      <Route path="*" element={<Navigate to="/application/personal-details" replace />} />
+      <Route
+        path="*"
+        element={<Navigate to="/application/personal-details" replace />}
+      />
     </Routes>
   );
 };

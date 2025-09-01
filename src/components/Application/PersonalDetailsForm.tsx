@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Paper,
@@ -7,77 +7,107 @@ import {
   Button,
   Grid,
   Box,
-  Stepper,
-  Step,
-  StepLabel
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useApplication } from '../../context/ApplicationContext';
+  MenuItem,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useApplication } from "../../context/ApplicationContext";
 
-const steps = ['Personal Details', 'Contact Info', 'Employment', 'Documents', 'Review'];
+const employmentStatuses = [
+  "Full-time Employee",
+  "Part-time Employee",
+  "Self-employed",
+  "Unemployed",
+  "Retired",
+  "Student",
+];
+
+const incomeSources = [
+  "Employment",
+  "Self-employment",
+  "Investment Income",
+  "Retirement Benefits",
+  "Other",
+];
 
 export const PersonalDetailsForm: React.FC = () => {
   const navigate = useNavigate();
   const { currentApplication, updateApplication } = useApplication();
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    dateOfBirth: '',
-    ssn: ''
+    // Personal
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    dateOfBirth: "",
+    ssn: "",
+    // Contact
+    email: "",
+    phone: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    // Employment & Income
+    employmentStatus: "",
+    primaryIncomeSource: "",
+    annualIncome: "",
+    // loan details
+    loanAmount: "",
+    loanPurpose: "",
+    loanTerm: "",
+    // Terms
+    termsAccepted: false,
   });
 
   useEffect(() => {
-    if (currentApplication?.personalDetails) {
-      setFormData(currentApplication.personalDetails);
+    if (!currentApplication) {
+      navigate("/loan-selection");
+    } else {
+      setFormData((prev) => ({ ...prev, ...currentApplication }));
+      navigate("/documents");
     }
-  }, [currentApplication]);
+  }, [currentApplication, navigate]);
 
-  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [field]: e.target.value }));
-  };
+  const handleChange =
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
-  const handleNext = () => {
-    updateApplication({
-      personalDetails: formData
-    });
-    navigate('/application/contact-info');
+  const handleSubmit = () => {
+    updateApplication(formData);
+    console.log("Submitting loan application:", formData);
+    navigate("/application/success");
   };
 
   if (!currentApplication) {
-    navigate('/loan-selection');
+    navigate("/loan-selection");
     return null;
   }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={2} sx={{ p: 4 }}>
-        <Stepper activeStep={0} sx={{ mb: 4 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
           Loan Application Form
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Please fill out the form below to apply for a loan. All fields are required unless otherwise noted.
+          Please fill out the form below to apply for a loan. All fields are
+          required unless otherwise noted.
         </Typography>
 
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mt: 4 }}>
+        {/* Personal Details */}
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
           Personal Details
         </Typography>
-
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="First Name"
               value={formData.firstName}
-              onChange={handleChange('firstName')}
+              onChange={handleChange("firstName")}
               required
             />
           </Grid>
@@ -86,7 +116,7 @@ export const PersonalDetailsForm: React.FC = () => {
               fullWidth
               label="Last Name"
               value={formData.lastName}
-              onChange={handleChange('lastName')}
+              onChange={handleChange("lastName")}
               required
             />
           </Grid>
@@ -95,7 +125,7 @@ export const PersonalDetailsForm: React.FC = () => {
               fullWidth
               label="Middle Name (Optional)"
               value={formData.middleName}
-              onChange={handleChange('middleName')}
+              onChange={handleChange("middleName")}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -104,7 +134,7 @@ export const PersonalDetailsForm: React.FC = () => {
               label="Date of Birth"
               type="date"
               value={formData.dateOfBirth}
-              onChange={handleChange('dateOfBirth')}
+              onChange={handleChange("dateOfBirth")}
               InputLabelProps={{ shrink: true }}
               required
             />
@@ -112,23 +142,184 @@ export const PersonalDetailsForm: React.FC = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Social Security Number / Social Insurance Number"
+              label="SSN / SIN"
               value={formData.ssn}
-              onChange={handleChange('ssn')}
+              onChange={handleChange("ssn")}
               placeholder="XXX-XX-XXXX (US) or XXX-XXX-XXX (CA)"
               required
             />
           </Grid>
         </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+        {/* Contact Info */}
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          Contact Information
+        </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Email"
+              value={formData.email}
+              onChange={handleChange("email")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Phone"
+              value={formData.phone}
+              onChange={handleChange("phone")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Street Address"
+              value={formData.street}
+              onChange={handleChange("street")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="City"
+              value={formData.city}
+              onChange={handleChange("city")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="State / Province"
+              value={formData.state}
+              onChange={handleChange("state")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="Zip / Postal Code"
+              value={formData.zipCode}
+              onChange={handleChange("zipCode")}
+              required
+            />
+          </Grid>
+        </Grid>
+
+        {/* Employment */}
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          Employment & Income
+        </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              select
+              label="Employment Status"
+              value={formData.employmentStatus}
+              onChange={handleChange("employmentStatus")}
+              required
+              defaultValue="Student"
+              helperText="Please select your Employment Status"
+            >
+              {employmentStatuses.map((status) => (
+                <MenuItem key={status} value={status}>
+                  {status}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              select
+              label="Primary Income Source"
+              value={formData.primaryIncomeSource}
+              defaultValue="Student"
+              helperText="Please select your Income Source"
+              onChange={handleChange("primaryIncomeSource")}
+              required
+            >
+              {incomeSources.map((src) => (
+                <MenuItem key={src} value={src}>
+                  {src}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Annual Income"
+              value={formData.annualIncome}
+              onChange={handleChange("annualIncome")}
+              required
+            />
+          </Grid>
+        </Grid>
+
+        {/* LOAN REQUEST DETAILS */}
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          Loan Request Details
+        </Typography>
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Loan Amount"
+              value={formData.loanAmount}
+              onChange={handleChange("loanAmount")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Loan Term (in months)"
+              value={formData.loanTerm}
+              onChange={handleChange("loanTerm")}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Loan Purpose"
+              value={formData.loanPurpose}
+              onChange={handleChange("loanPurpose")}
+              required
+            />
+          </Grid>
+        </Grid>
+        {/* Terms and condition */}
+        <Box sx={{ mt: 3 }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.termsAccepted}
+                onChange={handleChange("termsAccepted")}
+              />
+            }
+            label="I accept the Terms & Conditions"
+          />
+        </Box>
+        {/* Submit Button */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}>
           <Button
             variant="contained"
-            onClick={handleNext}
+            onClick={handleSubmit}
             size="large"
             sx={{ px: 4 }}
+            disabled={!formData.termsAccepted}
           >
-            Next: Contact Information
+            Submit Application
           </Button>
         </Box>
       </Paper>

@@ -49,44 +49,72 @@ export const LoanSelection: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 6 }}>
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
-        <Typography variant="h3" gutterBottom sx={{ fontWeight: 600, color: '#333' }}>
-          Choose Your Loan Type
-        </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-          Select the loan type that best fits your financial goals. We offer a variety of options
-          designed to meet your specific needs.
-        </Typography>
-      </Box>
+  <Box
+  sx={{
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    bgcolor: '#f5f5f5',
+  }}
+>
+  <Container maxWidth="lg" sx={{ py: { xs: 4, sm: 6 } }}>
+    {/* Header */}
+    <Box sx={{ textAlign: 'center', mb: { xs: 4, sm: 6 }, px: { xs: 2, sm: 0 } }}>
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ fontWeight: 600, color: '#333', fontSize: { xs: '1.75rem', sm: '2.125rem' } }}
+      >
+        Choose Your Loan Type
+      </Typography>
+      <Typography
+        variant="h6"
+        color="text.secondary"
+        sx={{ maxWidth: 600, mx: 'auto', fontSize: { xs: '1rem', sm: '1.125rem' } }}
+      >
+        Select the loan type that best fits your financial goals. We offer a variety of options
+        designed to meet your specific needs.
+      </Typography>
+    </Box>
 
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        {loanTypes.map((loan) => (
-          <Grid item xs={12} sm={6} md={4} key={loan.type}>
-            <LoanTypeCard
-              title={loan.title}
-              description={loan.description}
-              icon={loan.icon}
-              onClick={() => handleLoanTypeSelect(loan.type)}
-            />
-          </Grid>
-        ))}
-      </Grid>
-
-      <Box sx={{ textAlign: 'center' }}>
-        <Button
-          variant="contained"
-          size="large"
-          sx={{ 
-            px: 4, 
-            py: 1.5,
-            bgcolor: '#1976d2',
-            '&:hover': { bgcolor: '#1565c0' }
-          }}
+    {/* Loan Cards */}
+    <Grid container spacing={3} sx={{ mb: { xs: 3, sm: 4 } }}>
+      {loanTypes.map((loan) => (
+        <Grid
+          key={loan.type}
+          item
+          xs={12}            // ✅ MUI v7 supports gridSize shorthand again
+          sm={6}
+          md={4}
         >
-          Next Step →
-        </Button>
-      </Box>
-    </Container>
+          <LoanTypeCard
+            title={loan.title}
+            description={loan.description}
+            icon={loan.icon}
+            onClick={() => handleLoanTypeSelect(loan.type)}
+          />
+        </Grid>
+      ))}
+    </Grid>
+
+    {/* Next Button */}
+    <Box sx={{ textAlign: 'center', mt: { xs: 2, sm: 4 } }}>
+      <Button
+        variant="contained"
+        size="large"
+        sx={{
+          px: { xs: 3, sm: 4 },
+          py: { xs: 1, sm: 1.5 },
+          fontSize: { xs: '0.9rem', sm: '1rem' },
+          bgcolor: '#1976d2',
+          '&:hover': { bgcolor: '#1565c0' },
+        }}
+      >
+        Next Step →
+      </Button>
+    </Box>
+  </Container>
+</Box>
   );
 };
