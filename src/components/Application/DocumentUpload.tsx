@@ -150,7 +150,6 @@ export const DocumentUpload: React.FC = () => {
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
         Please upload the required documents for your loan application.
       </Typography>
-
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Box sx={{ mb: 3 }}>
