@@ -66,12 +66,17 @@ export const PersonalDetailsForm: React.FC = () => {
       navigate("/loan-selection");
     } else {
       setFormData((prev) => ({ ...prev, ...currentApplication }));
-      navigate("/documents");
+      // navigate("/documents");
     }
   }, [currentApplication, navigate]);
 
+  useEffect(() => {
+    console.log("Terms Accepted:", formData.termsAccepted);
+  }, [formData.termsAccepted]);
+
   const handleChange =
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      // console.log(`Field ${field} changed to ${e.target.value}`);
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
@@ -85,6 +90,32 @@ export const PersonalDetailsForm: React.FC = () => {
     navigate("/loan-selection");
     return null;
   }
+
+  // ✅ Utility function to check required fields
+  const isFormComplete = () => {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "dateOfBirth",
+      "ssn",
+      "email",
+      "phone",
+      "street",
+      "city",
+      "state",
+      "zipCode",
+      "employmentStatus",
+      "primaryIncomeSource",
+      "annualIncome",
+      "loanAmount",
+      "loanPurpose",
+      "loanTerm",
+    ];
+
+    return requiredFields.every(
+      (field) => formData[field as keyof typeof formData]
+    );
+  };
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -274,6 +305,7 @@ export const PersonalDetailsForm: React.FC = () => {
             <TextField
               fullWidth
               label="Loan Amount"
+              type="number"
               value={formData.loanAmount}
               onChange={handleChange("loanAmount")}
               required
@@ -282,6 +314,7 @@ export const PersonalDetailsForm: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
+              type="number"
               label="Loan Term (in months)"
               value={formData.loanTerm}
               onChange={handleChange("loanTerm")}
@@ -291,6 +324,7 @@ export const PersonalDetailsForm: React.FC = () => {
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
+              type="text"
               label="Loan Purpose"
               value={formData.loanPurpose}
               onChange={handleChange("loanPurpose")}
@@ -304,7 +338,12 @@ export const PersonalDetailsForm: React.FC = () => {
             control={
               <Checkbox
                 checked={formData.termsAccepted}
-                onChange={handleChange("termsAccepted")}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    termsAccepted: e.target.checked,
+                  }))
+                }
               />
             }
             label="I accept the Terms & Conditions"
@@ -317,7 +356,8 @@ export const PersonalDetailsForm: React.FC = () => {
             onClick={handleSubmit}
             size="large"
             sx={{ px: 4 }}
-            disabled={!formData.termsAccepted}
+            // disabled={!formData.termsAccepted}
+            disabled={!isFormComplete() || !formData.termsAccepted}
           >
             Submit Application
           </Button>

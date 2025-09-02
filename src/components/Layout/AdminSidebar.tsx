@@ -9,6 +9,7 @@ import {
   Typography,
   Divider,
   Badge,
+  Button,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -48,6 +49,10 @@ const alertItems = [
   { icon: BarChart3, label: "Analytics", path: "/admin/alerts/analytics" },
   { icon: Settings, label: "Settings", path: "/admin/alerts/settings" },
 ];
+interface AdminSidebarProps {
+  mobileOpen: boolean;
+  onClose: () => void;
+}
 
 export const AdminSidebar: React.FC = () => {
   const navigate = useNavigate();

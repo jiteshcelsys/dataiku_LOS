@@ -207,6 +207,8 @@ const ApplicationRoutes: React.FC = () => {
       <Route path="review" element={<ApplicationReview />} />
       <Route path="tracker" element={<ApplicationTracker />} />
       <Route path="approved" element={<ApplicationApproved />} />
+      {/* <Route path="*" element={<Navigate to="personal-details" replace />} /> */}
+
       <Route
         path="*"
         element={<Navigate to="/application/personal-details" replace />}

@@ -19,10 +19,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 interface HeaderProps {
-  onMenuClick?: () => void; // <-- add prop for sidebar toggle
+  onMenuClick?: () => void;
+  position?: "fixed" | "absolute" | "sticky" | "static" | "relative"; /// <-- add prop for sidebar toggle
 }
 
-export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onMenuClick,
+  // position = "sticky",
+  // default sticky
+}) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,7 +48,8 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
 
   return (
     <AppBar
-      position="fixed"
+      position="sticky"
+      // position={position}
       sx={{
         bgcolor: "#1976d2",
         borderRadius: 0,

@@ -25,7 +25,7 @@ export const AdminDashboardLayout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
       {/* Header (with profile/logout) */}
-      <Header onMenuClick={handleDrawerToggle} />
+      {/* <Header onMenuClick={handleDrawerToggle} /> */}
 
       {/* Sidebar + Main content */}
       <Box sx={{ display: "flex", flex: 1 }}>

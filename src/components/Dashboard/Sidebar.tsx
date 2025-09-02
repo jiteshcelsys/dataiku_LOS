@@ -43,7 +43,7 @@ export const Sidebar: React.FC = () => {
       }}
     >
       {/* Add space for top AppBar */}
-      <Toolbar />
+      {/* <Toolbar /> */}
       <List>
         {menuItems.map((item) => (
           <ListItemButton key={item.text} onClick={() => navigate(item.path)}>
