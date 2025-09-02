@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Paper,
@@ -18,25 +18,44 @@ import {
   ListItemSecondaryAction,
   IconButton,
   Chip,
-  Alert
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useApplication } from '../../context/ApplicationContext';
-import { Upload, FileText, Trash2 } from 'lucide-react';
-import type { UploadedDocument } from '../../types';
+  Alert,
+  Grid,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useApplication } from "../../context/ApplicationContext";
+import { Upload, FileText, Trash2 } from "lucide-react";
+import type { UploadedDocument } from "../../types";
 
-const steps = ['Personal Details', 'Contact Info', 'Employment', 'Documents', 'Review'];
+const steps = [
+  "Personal Details",
+  "Contact Info",
+  "Employment",
+  "Documents",
+  "Review",
+];
 
 const requiredDocuments = [
-  { type: 'identity', label: 'Proof of Identity', description: 'Driver\'s License or Passport' },
-  { type: 'address', label: 'Proof of Address', description: 'Utility Bill (last 3 months)' },
-  { type: 'income', label: 'W-2 Forms', description: 'Last two years of W-2 forms' }
+  {
+    type: "identity",
+    label: "Proof of Identity",
+    description: "Driver's License or Passport",
+  },
+  {
+    type: "address",
+    label: "Proof of Address",
+    description: "Utility Bill (last 3 months)",
+  },
+  {
+    type: "income",
+    label: "W-2 Forms",
+    description: "Last two years of W-2 forms",
+  },
 ];
 
 export const DocumentUpload: React.FC = () => {
   const navigate = useNavigate();
   const { currentApplication, updateApplication } = useApplication();
-  const [selectedLoanType, setSelectedLoanType] = useState('Mortgage Loan');
+  const [selectedLoanType, setSelectedLoanType] = useState("Mortgage Loan");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedDocument[]>([]);
 
   const handleFileUpload = (documentType: string) => {
@@ -47,25 +66,25 @@ export const DocumentUpload: React.FC = () => {
       type: documentType,
       size: Math.floor(Math.random() * 1000000),
       uploadDate: new Date(),
-      required: true
+      required: true,
     };
-    
-    setUploadedFiles(prev => [...prev, mockFile]);
+
+    setUploadedFiles((prev) => [...prev, mockFile]);
   };
 
   const handleFileRemove = (fileId: string) => {
-    setUploadedFiles(prev => prev.filter(file => file.id !== fileId));
+    setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
   const handleNext = () => {
     updateApplication({
-      documents: uploadedFiles
+      documents: uploadedFiles,
     });
-    navigate('/application/review');
+    navigate("/application/review");
   };
 
   const handleBack = () => {
-    navigate('/application/employment');
+    navigate("/application/employment");
   };
 
   const getUploadStatus = () => {
@@ -75,20 +94,20 @@ export const DocumentUpload: React.FC = () => {
   };
 
   if (!currentApplication) {
-    navigate('/loan-selection');
+    navigate("/loan-selection");
     return null;
   }
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={2} sx={{ p: 4 }}>
-        <Stepper activeStep={3} sx={{ mb: 4 }}>
+        {/* <Stepper activeStep={3} sx={{ mb: 4 }}>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-        </Stepper>
+        </Stepper> */}
 
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
           Document Upload
@@ -104,7 +123,9 @@ export const DocumentUpload: React.FC = () => {
                 Loan Type
               </Typography>
               <FormControl fullWidth>
-                <InputLabel>Select your loan type to view specific document requirements</InputLabel>
+                <InputLabel>
+                  Select your loan type to view specific document requirements
+                </InputLabel>
                 <Select
                   value={selectedLoanType}
                   onChange={(e) => setSelectedLoanType(e.target.value)}
@@ -127,14 +148,28 @@ export const DocumentUpload: React.FC = () => {
 
             <List>
               {requiredDocuments.map((doc, index) => (
-                <ListItem key={doc.type} sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', mb: 1 }}>
+                <ListItem
+                  key={doc.type}
+                  sx={{
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    py: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
+                      mb: 1,
+                    }}
+                  >
                     <FileText size={20} className="mr-2" />
-                    <ListItemText 
+                    <ListItemText
                       primary={doc.label}
                       secondary={doc.description}
                     />
-                    {uploadedFiles.find(f => f.type === doc.type) ? (
+                    {uploadedFiles.find((f) => f.type === doc.type) ? (
                       <Chip label="Uploaded" color="success" size="small" />
                     ) : (
                       <Chip label="Required" color="error" size="small" />
@@ -155,13 +190,15 @@ export const DocumentUpload: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Box sx={{ 
-              border: '2px dashed #ccc', 
-              borderRadius: 2, 
-              p: 4, 
-              textAlign: 'center',
-              mb: 3
-            }}>
+            <Box
+              sx={{
+                border: "2px dashed #ccc",
+                borderRadius: 2,
+                p: 4,
+                textAlign: "center",
+                mb: 3,
+              }}
+            >
               <Upload size={48} className="text-gray-400 mb-4" />
               <Typography variant="h6" gutterBottom>
                 Drag & Drop Your Files Here
@@ -178,22 +215,26 @@ export const DocumentUpload: React.FC = () => {
               <Typography variant="h6" gutterBottom>
                 Upload Status
               </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Box sx={{ 
-                  width: '100%', 
-                  height: 8, 
-                  bgcolor: '#e0e0e0', 
-                  borderRadius: 1,
-                  overflow: 'hidden'
-                }}>
-                  <Box sx={{ 
-                    width: `${getUploadStatus()}%`, 
-                    height: '100%', 
-                    bgcolor: '#4caf50',
-                    transition: 'width 0.3s ease'
-                  }} />
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: 8,
+                    bgcolor: "#e0e0e0",
+                    borderRadius: 1,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: `${getUploadStatus()}%`,
+                      height: "100%",
+                      bgcolor: "#4caf50",
+                      transition: "width 0.3s ease",
+                    }}
+                  />
                 </Box>
-                <Typography variant="body2" sx={{ minWidth: 'fit-content' }}>
+                <Typography variant="body2" sx={{ minWidth: "fit-content" }}>
                   {getUploadStatus()}%
                 </Typography>
               </Box>
@@ -211,12 +252,15 @@ export const DocumentUpload: React.FC = () => {
                   {uploadedFiles.map((file) => (
                     <ListItem key={file.id}>
                       <FileText size={20} className="mr-2" />
-                      <ListItemText 
+                      <ListItemText
                         primary={file.name}
                         secondary={`${(file.size / 1024).toFixed(1)} KB • ${file.uploadDate.toLocaleDateString()}`}
                       />
                       <ListItemSecondaryAction>
-                        <IconButton onClick={() => handleFileRemove(file.id)} size="small">
+                        <IconButton
+                          onClick={() => handleFileRemove(file.id)}
+                          size="small"
+                        >
                           <Trash2 size={16} />
                         </IconButton>
                       </ListItemSecondaryAction>
@@ -228,7 +272,7 @@ export const DocumentUpload: React.FC = () => {
           </Grid>
         </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
           <Button
             variant="outlined"
             onClick={handleBack}
@@ -237,12 +281,8 @@ export const DocumentUpload: React.FC = () => {
           >
             Back
           </Button>
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button
-              variant="outlined"
-              size="large"
-              sx={{ px: 4 }}
-            >
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button variant="outlined" size="large" sx={{ px: 4 }}>
               Save Draft
             </Button>
             <Button

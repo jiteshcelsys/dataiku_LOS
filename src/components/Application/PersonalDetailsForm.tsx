@@ -83,7 +83,8 @@ export const PersonalDetailsForm: React.FC = () => {
   const handleSubmit = () => {
     updateApplication(formData);
     console.log("Submitting loan application:", formData);
-    navigate("/application/success");
+    // navigate("/application/success");
+    navigate("/application/documents");
   };
 
   if (!currentApplication) {
@@ -356,8 +357,8 @@ export const PersonalDetailsForm: React.FC = () => {
             onClick={handleSubmit}
             size="large"
             sx={{ px: 4 }}
-            // disabled={!formData.termsAccepted}
-            disabled={!isFormComplete() || !formData.termsAccepted}
+            disabled={!formData.termsAccepted}
+            // disabled={!isFormComplete() || !formData.termsAccepted}
           >
             Submit Application
           </Button>
