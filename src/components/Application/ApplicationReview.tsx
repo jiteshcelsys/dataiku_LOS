@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
+import { FileText } from "lucide-react";
 
 const steps = [
   "Personal Details",
