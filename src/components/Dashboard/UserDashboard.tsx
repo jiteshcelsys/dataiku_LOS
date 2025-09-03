@@ -55,7 +55,7 @@ export const UserDashboard: React.FC = () => {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   alignItems: "center",
                   mb: 3,
                 }}
@@ -152,10 +152,22 @@ export const UserDashboard: React.FC = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Card sx={{ mb: 3 }}>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          {/* Quick Stats (top card) */}
+          <Card sx={{ mb: 2, flexGrow: 1 }}>
             <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mb: 5,
+                }}
+              >
                 <TrendingUp size={24} className="mr-2 text-blue-600" />
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>
                   Quick Stats
@@ -185,7 +197,8 @@ export const UserDashboard: React.FC = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          {/* Need Help (bottom card) */}
+          <Card sx={{ mt: "auto" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Need Help?

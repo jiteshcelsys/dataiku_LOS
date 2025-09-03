@@ -24,9 +24,9 @@ import { ApplicationReview } from "./components/Application/ApplicationReview";
 import { ApplicationTracker } from "./components/Application/ApplicationTracker";
 import { ApplicationApproved } from "./components/Application/ApplicationApproved";
 import { UserDashboard } from "./components/Dashboard/UserDashboard";
-import FinserveSolutionsSubsection from "./Admin/FinserveSolutionsSubsection";
-import { ProvisoSentinelSubsection } from "./Admin/ProvisoSentinelSubsection";
-import { TalentflowApplicantSubsection } from "./Admin/TalentflowApplicantSubsection";
+import { AdminAlertInbox } from "./Admin/AdminAlertInbox";
+import { AdminAnalytics } from "./Admin/AdminAnalytics";
+import AdminDashboard from "./Admin/AdminDashboard";
 
 const theme = createTheme({
   palette: {
@@ -173,7 +173,7 @@ const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <TalentflowApplicantSubsection />;
+    return <AdminDashboard />;
   }
 
   return <UserDashboard />;
@@ -183,13 +183,10 @@ const DashboardRouter: React.FC = () => {
 const AdminRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="dashboard" element={<FinserveSolutionsSubsection />} />
-      <Route path="applications" element={<ProvisoSentinelSubsection />} />
-      <Route
-        path="applications/:id"
-        element={<TalentflowApplicantSubsection />}
-      />
-      <Route path="alerts" element={<TalentflowApplicantSubsection />} />
+      <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="alert" element={<AdminAlertInbox />} />
+      <Route path="analytics" element={<AdminAnalytics />} />
+      <Route path="alerts" element={<AdminAnalytics />} />
       <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
     </Routes>
   );
@@ -206,6 +203,7 @@ const ApplicationRoutes: React.FC = () => {
       <Route path="review" element={<ApplicationReview />} />
       <Route path="tracker" element={<ApplicationTracker />} />
       <Route path="approved" element={<ApplicationApproved />} />
+
       {/* <Route path="*" element={<Navigate to="personal-details" replace />} /> */}
 
       <Route
