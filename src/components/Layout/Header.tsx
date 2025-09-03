@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
       position="sticky"
       // position={position}
       sx={{
-        bgcolor: "#1976d2",
+        bgcolor: "#b9d4efff",
         borderRadius: 0,
         boxShadow: "none",
         zIndex: (theme) => theme.zIndex.drawer + 1,
@@ -79,8 +79,9 @@ export const Header: React.FC<HeaderProps> = ({
             to="/"
             sx={{
               textDecoration: "none",
-              color: "inherit",
+              // color: "inherit",
               fontWeight: 600,
+              color: "#343b41ff",
             }}
           >
             Celestial Systems
@@ -122,7 +123,8 @@ export const Header: React.FC<HeaderProps> = ({
             </Box>
 
             <Button
-              color="inherit"
+              // color="inherit"
+              sx={{ color: "#343b41ff" }}
               onClick={handleProfileMenuOpen}
               startIcon={
                 <Avatar sx={{ width: 24, height: 24, fontSize: "0.75rem" }}>
