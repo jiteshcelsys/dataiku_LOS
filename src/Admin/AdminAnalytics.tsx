@@ -52,7 +52,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export const TalentflowApplicantSubsection = (): JSX.Element => {
+export const AdminAnalytics = (): JSX.Element => {
   const navigate = useNavigate();
   const navigationItems = [
     {

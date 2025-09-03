@@ -164,7 +164,7 @@ const footerLinks = [
   { label: "Contact Us" },
 ];
 
-export const ProvisoSentinelSubsection = (): JSX.Element => {
+export const AdminAlertInbox = (): JSX.Element => {
   const navigate = useNavigate();
   const handleNavigationClick = (item: string): void => {
     console.log(item);

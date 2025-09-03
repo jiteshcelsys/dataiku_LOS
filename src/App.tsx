@@ -24,9 +24,9 @@ import { ApplicationReview } from "./components/Application/ApplicationReview";
 import { ApplicationTracker } from "./components/Application/ApplicationTracker";
 import { ApplicationApproved } from "./components/Application/ApplicationApproved";
 import { UserDashboard } from "./components/Dashboard/UserDashboard";
-import { FinserveSolutionsSubsection } from "./Admin/AdminDashboard";
-import { ProvisoSentinelSubsection } from "./Admin/AdminAlertInbox";
-import { TalentflowApplicantSubsection } from "./Admin/AdminAnalytics";
+import { AdminAlertInbox } from "./Admin/AdminAlertInbox";
+import { AdminAnalytics } from "./Admin/AdminAnalytics";
+import AdminDashboard from "./Admin/AdminDashboard";
 
 const theme = createTheme({
   palette: {
@@ -173,7 +173,7 @@ const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <FinserveSolutionsSubsection />;
+    return <AdminDashboard />;
   }
 
   return <UserDashboard />;
@@ -183,10 +183,10 @@ const DashboardRouter: React.FC = () => {
 const AdminRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="dashboard" element={<FinserveSolutionsSubsection />} />
-      <Route path="alert" element={<ProvisoSentinelSubsection />} />
-      <Route path="analytics" element={<TalentflowApplicantSubsection />} />
-      <Route path="alerts" element={<TalentflowApplicantSubsection />} />
+      <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="alert" element={<AdminAlertInbox />} />
+      <Route path="analytics" element={<AdminAnalytics />} />
+      <Route path="alerts" element={<AdminAnalytics />} />
       <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
     </Routes>
   );
