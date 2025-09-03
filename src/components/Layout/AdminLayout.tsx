@@ -20,7 +20,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <Box
         sx={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}
       >
-        <Header onMenuClick={handleDrawerToggle} />
+        {/* <Header onMenuClick={handleDrawerToggle} /> */}
         {/* Header with hamburger for mobile */}
 
         {/* Sidebar + Main */}

@@ -17,20 +17,37 @@ export const LoginForm: React.FC = () => {
   const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     const success = await login(email, password);
     if (success) {
-      navigate("/dashboard");
+      if (email === "admin@celestial.com") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/dashboard");
+      }
     } else {
       setError(
         "Invalid email or password. Try admin@celestial.com / admin123 or user@example.com / user123"
       );
     }
   };
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+
+  //   const success = await login(email, password);
+  //   if (success) {
+  //     navigate("/dashboard");
+  //   } else {
+  //     setError(
+  //       "Invalid email or password. Try admin@celestial.com / admin123 or user@example.com / user123"
+  //     );
+  //   }
+  // };
 
   return (
     <Box
