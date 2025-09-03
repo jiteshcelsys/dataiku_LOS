@@ -11,7 +11,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { type JSX } from "react";
+import { useState, type JSX } from "react";
 import {
   AppBar,
   Avatar,
@@ -20,6 +20,7 @@ import {
   Card,
   CardContent,
   Chip,
+  Drawer,
   FormControl,
   InputAdornment,
   List,
@@ -40,8 +41,10 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const FinserveSolutionsSubsection = (): JSX.Element => {
+  const navigate = useNavigate();
   const metricCards = [
     {
       title: "Total Applications",
@@ -80,18 +83,13 @@ export const FinserveSolutionsSubsection = (): JSX.Element => {
       active: true,
     },
     {
-      label: "Customer Accounts",
+      label: "Alert Inbox",
       icon: Users,
       active: false,
     },
     {
       label: "Analytics & Reports",
       icon: BarChart3,
-      active: false,
-    },
-    {
-      label: "Settings",
-      icon: Settings,
       active: false,
     },
   ];
@@ -170,6 +168,16 @@ export const FinserveSolutionsSubsection = (): JSX.Element => {
       submissionDate: "2024-07-24",
     },
   ];
+  const [loanType, setLoanType] = useState<string>("jitesh");
+
+  const handleNavigationClick = (item: string): void => {
+    console.log(item);
+    if (item === "Alert Inbox") {
+      navigate("/admin/alert");
+    } else if (item === "Analytics & Reports") {
+      navigate("/admin/analytics");
+    }
+  };
 
   return (
     <Box
@@ -184,68 +192,116 @@ export const FinserveSolutionsSubsection = (): JSX.Element => {
     >
       <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
         {/* Sidebar */}
-        <Paper
+        <Drawer
+          variant="permanent"
           sx={{
             width: 256,
-            height: "100%",
-            border: "1px solid #dee1e6",
-            borderRadius: 0,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: 256,
+              boxSizing: "border-box",
+              border: "1px solid #dee1e6",
+              borderRadius: 0,
+              display: "flex",
+              flexDirection: "column",
+            },
           }}
         >
+          {/* Logo */}
           <Box sx={{ p: 1.5 }}>
             <img
               style={{ width: 198, height: 52 }}
               alt="Logo"
-              src="/image.png"
+              src="/image-1.png"
             />
           </Box>
 
-          <List sx={{ px: 1, py: 2 }}>
-            {navigationItems.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <ListItem key={index} disablePadding>
-                  <ListItemButton
-                    selected={item.active}
-                    sx={{
-                      borderRadius: 1,
-                      mx: 1,
-                      "&.Mui-selected": {
-                        bgcolor: "grey.100",
-                      },
-                    }}
-                  >
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <IconComponent size={20} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.label}
-                      primaryTypographyProps={{
-                        fontWeight: 500,
-                        fontSize: 14,
-                        color: item.active ? "#1e2128" : "#565d6d",
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-
-          <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
-            <Box sx={{ px: 2, py: 1, borderRadius: 1 }}>
-              <Typography
-                sx={{
-                  fontWeight: 500,
-                  color: "#565d6d",
-                  fontSize: 14,
-                }}
-              >
-                Need Help?
-              </Typography>
+          {/* Navigation */}
+          <Box sx={{ flexGrow: 1, px: 0.5, py: 2 }}>
+            <Box sx={{ mb: 2 }}>
+              <List sx={{ py: 0 }}>
+                {navigationItems.map((item, index) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <ListItem key={item.label} disablePadding>
+                      <ListItemButton
+                        selected={item.active}
+                        sx={{
+                          borderRadius: 1,
+                          mx: 1,
+                          "&.Mui-selected": {
+                            bgcolor: "grey.100",
+                          },
+                        }}
+                        onClick={() => handleNavigationClick(item.label)}
+                      >
+                        <ListItemIcon sx={{ minWidth: 36 }}>
+                          <IconComponent size={20} />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={item.label}
+                          primaryTypographyProps={{
+                            fontWeight: 500,
+                            fontSize: 14,
+                            color: item.active ? "#1e2128" : "#565d6d",
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
             </Box>
           </Box>
-        </Paper>
+
+          {/* User Profile */}
+          <Box sx={{ p: 2, borderTop: "1px solid #dee1e6" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ position: "relative" }}>
+                <Avatar
+                  src="/rectangle-6.png"
+                  sx={{ width: 40, height: 40, bgcolor: "#fce1fc" }}
+                >
+                  AU
+                </Avatar>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: -2,
+                    right: -2,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "#25984d",
+                    borderRadius: "50%",
+                    border: "1.5px solid white",
+                  }}
+                />
+              </Box>
+              <Box sx={{ ml: 1.5 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 600,
+                    color: "#171a1f",
+                    fontSize: 14,
+                  }}
+                >
+                  Admin User
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 400,
+                    color: "#565d6d",
+                    fontSize: 14,
+                  }}
+                >
+                  Online
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Drawer>
 
         {/* Main Content */}
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
@@ -444,6 +500,7 @@ export const FinserveSolutionsSubsection = (): JSX.Element => {
                             ? value
                             : "Select type"
                         }
+                        value={loanType}
                       >
                         <MenuItem value="">Select type</MenuItem>
                         <MenuItem value="mortgage">Mortgage Loan</MenuItem>

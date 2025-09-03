@@ -160,10 +160,12 @@ export const PersonalDetailsForm: React.FC = () => {
               onChange={handleChange("middleName")}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+        </Grid>
+        <Box mb={3}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Date of Birth"
+              label="Datef of Birth"
               type="date"
               value={formData.dateOfBirth}
               onChange={handleChange("dateOfBirth")}
@@ -171,7 +173,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} mt={3}>
             <TextField
               fullWidth
               label="SSN / SIN"
@@ -181,7 +183,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-        </Grid>
+        </Box>
 
         {/* Contact Info */}
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
