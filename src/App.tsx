@@ -24,7 +24,7 @@ import { ApplicationReview } from "./components/Application/ApplicationReview";
 import { ApplicationTracker } from "./components/Application/ApplicationTracker";
 import { ApplicationApproved } from "./components/Application/ApplicationApproved";
 import { UserDashboard } from "./components/Dashboard/UserDashboard";
-import { FinserveSolutionsSubsection } from "./Admin/FinserveSolutionsSubsection";
+import FinserveSolutionsSubsection from "./Admin/FinserveSolutionsSubsection";
 import { ProvisoSentinelSubsection } from "./Admin/ProvisoSentinelSubsection";
 import { TalentflowApplicantSubsection } from "./Admin/TalentflowApplicantSubsection";
 
@@ -173,7 +173,7 @@ const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <FinserveSolutionsSubsection />;
+    return <TalentflowApplicantSubsection />;
   }
 
   return <UserDashboard />;

@@ -10,38 +10,30 @@ import {
   Settings,
   Users,
   X,
+  Menu,
 } from "lucide-react";
-import { type JSX } from "react";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  FormControl,
-  InputAdornment,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  Paper,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import React, { useState, useEffect } from "react";
 
-export const FinserveSolutionsSubsection = (): JSX.Element => {
+export default function FinserveSolutionsSubsection() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   const metricCards = [
     {
       title: "Total Applications",
@@ -171,700 +163,786 @@ export const FinserveSolutionsSubsection = (): JSX.Element => {
     },
   ];
 
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "1080px",
-        bgcolor: "#fafafb",
-        overflow: "hidden",
-        boxShadow: "0px 3px 6px rgba(18, 15, 40, 0.12)",
-        position: "relative",
-      }}
-    >
-      <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
-        {/* Sidebar */}
-        <Paper
-          sx={{
-            width: 256,
-            height: "100%",
-            border: "1px solid #dee1e6",
-            borderRadius: 0,
-          }}
-        >
-          <Box sx={{ p: 1.5 }}>
-            <img
-              style={{ width: 198, height: 52 }}
-              alt="Logo"
-              src="/image.png"
-            />
-          </Box>
+  const sidebarStyle = {
+    width: isMobile ? '100%' : '256px',
+    height: '100%',
+    backgroundColor: 'white',
+    borderRight: '1px solid #dee1e6',
+    display: 'flex',
+    flexDirection: 'column',
+  };
 
-          <List sx={{ px: 1, py: 2 }}>
-            {navigationItems.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <ListItem key={index} disablePadding>
-                  <ListItemButton
-                    selected={item.active}
-                    sx={{
-                      borderRadius: 1,
-                      mx: 1,
-                      "&.Mui-selected": {
-                        bgcolor: "grey.100",
-                      },
-                    }}
-                  >
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <IconComponent size={20} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.label}
-                      primaryTypographyProps={{
-                        fontWeight: 500,
-                        fontSize: 14,
-                        color: item.active ? "#1e2128" : "#565d6d",
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+  const drawer = (
+    <div style={sidebarStyle as React.CSSProperties}>
+      <div style={{ padding: '24px' }}>
+        <img 
+          style={{ 
+            width: '100%', 
+            maxWidth: '198px', 
+            height: '52px', 
+            objectFit: 'contain' 
+          }} 
+          alt="Logo" 
+          src="/image.png" 
+        />
+      </div>
 
-          <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
-            <Box sx={{ px: 2, py: 1, borderRadius: 1 }}>
-              <Typography
-                sx={{
-                  fontWeight: 500,
-                  color: "#565d6d",
-                  fontSize: 14,
+      <nav style={{ padding: '0 16px', flex: 1 }}>
+        {navigationItems.map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <div key={index} style={{ marginBottom: '4px' }}>
+              <button
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: item.active ? '#f5f5f5' : 'transparent',
+                  color: item.active ? '#1e2128' : '#565d6d',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  if (!item.active) {
+                    (e.target as HTMLButtonElement).style.backgroundColor = '#f9f9f9';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!item.active) {
+                    (e.target as HTMLButtonElement).style.backgroundColor = 'transparent';
+                  }
                 }}
               >
-                Need Help?
-              </Typography>
-            </Box>
-          </Box>
-        </Paper>
+                <IconComponent size={20} style={{ marginRight: '12px' }} />
+                {item.label}
+              </button>
+            </div>
+          );
+        })}
+      </nav>
 
-        {/* Main Content */}
-        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-          {/* Top Navigation */}
-          <AppBar
-            position="static"
-            elevation={0}
-            sx={{
-              height: 64,
-              bgcolor: "white",
-              borderBottom: "1px solid #dee1e6",
-              boxShadow:
-                "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
-            }}
-          >
-            <Toolbar sx={{ justifyContent: "flex-end", gap: 2 }}>
-              <TextField
+      {!isMobile && (
+        <div style={{ position: 'absolute', bottom: '16px', left: '16px' }}>
+          <div style={{ padding: '8px 16px', borderRadius: '4px' }}>
+            <span style={{
+              fontFamily: 'Roboto',
+              fontWeight: '500',
+              color: '#565d6d',
+              fontSize: '14px',
+            }}>
+              Need Help?
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const getGridCols = () => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 4;
+  };
+
+  const getFilterGridCols = () => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 4;
+  };
+
+  return (
+    <div style={{ 
+      display: 'flex', 
+      height: '100vh', 
+      backgroundColor: '#fafafb', 
+      overflow: 'hidden',
+      boxShadow: '0px 3px 6px rgba(18, 15, 40, 0.12)'
+    }}>
+      {/* Mobile Sidebar Overlay */}
+      {mobileOpen && isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1000,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }} onClick={handleDrawerToggle}>
+          <div style={{
+            width: '256px',
+            height: '100%',
+            backgroundColor: 'white',
+          }} onClick={(e) => e.stopPropagation()}>
+            {drawer}
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Sidebar */}
+      {!isMobile && drawer}
+
+      {/* Main Content */}
+      <div style={{ 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        overflow: 'hidden' 
+      }}>
+        {/* Top Navigation */}
+        <header style={{
+          height: '64px',
+          backgroundColor: 'white',
+          borderBottom: '1px solid #dee1e6',
+          boxShadow: '0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)',
+        }}>
+          <div style={{
+            height: '100%',
+            display: 'flex',
+            justifyContent: isMobile ? 'space-between' : 'flex-end',
+            alignItems: 'center',
+            padding: '0 16px',
+            gap: '16px',
+          }}>
+            {isMobile && (
+              <button
+                onClick={handleDrawerToggle}
+                style={{
+                  padding: '8px',
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                  cursor: 'pointer',
+                  borderRadius: '4px',
+                }}
+              >
+                <Menu size={24} color="#171a1f" />
+              </button>
+            )}
+            
+            <div style={{ position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                left: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                pointerEvents: 'none',
+              }}>
+                <Search size={16} color="rgba(23, 26, 31, 0.4)" />
+              </div>
+              <input
+                type="text"
                 placeholder="Search all applications..."
-                size="small"
-                sx={{
-                  width: 257,
-                  "& .MuiInputBase-root": {
-                    fontSize: 14,
-                    color: "rgba(23, 26, 31, 0.4)",
-                  },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search size={16} color="rgba(23, 26, 31, 0.4)" />
-                    </InputAdornment>
-                  ),
+                style={{
+                  width: isMobile ? '200px' : '257px',
+                  padding: '8px 12px 8px 40px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontFamily: 'Roboto',
+                  outline: 'none',
                 }}
               />
-              <Avatar
-                src="/rectangle-5.png"
-                sx={{ width: 36, height: 36, bgcolor: "#e6f8f3" }}
+            </div>
+            <div style={{
+              width: '36px',
+              height: '36px',
+              backgroundColor: '#e6f8f3',
+              borderRadius: '50%',
+              overflow: 'hidden',
+            }}>
+              <img 
+                src="/rectangle-5.png" 
+                alt="Avatar" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
-            </Toolbar>
-          </AppBar>
+            </div>
+          </div>
+        </header>
 
-          {/* Content Area */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              p: 4,
-              display: "flex",
-              flexDirection: "column",
-              gap: 3,
-            }}
-          >
+        {/* Content Area */}
+        <main style={{ 
+          flex: 1, 
+          overflow: 'auto', 
+          padding: isMobile ? '16px' : isTablet ? '24px' : '32px'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '16px' : '24px' }}>
             {/* Metric Cards */}
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: 3,
-              }}
-            >
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: `repeat(${getGridCols()}, 1fr)`, 
+              gap: isMobile ? '16px' : '24px'
+            }}>
               {metricCards.map((card, index) => {
                 const IconComponent = card.icon;
                 return (
-                  <Card
+                  <div
                     key={index}
-                    sx={{
-                      bgcolor: card.bgColor,
-                      boxShadow:
-                        "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
-                      border: "none",
+                    style={{
+                      backgroundColor: card.bgColor,
+                      padding: isMobile ? '16px' : '24px',
+                      borderRadius: '8px',
+                      boxShadow: '0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)',
+                      border: 'none',
                     }}
                   >
-                    <CardContent sx={{ p: 3 }}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          justifyContent: "space-between",
-                          mb: 2,
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontWeight: 500,
-                            color: "#19191f",
-                            fontSize: 14,
-                            letterSpacing: "-0.35px",
-                            lineHeight: "20px",
-                          }}
-                        >
-                          {card.title}
-                        </Typography>
-                        <IconComponent size={20} />
-                      </Box>
-                      <Typography
-                        sx={{
-                          fontWeight: 700,
-                          color: "#19191f",
-                          fontSize: 24,
-                          lineHeight: "36px",
-                          mb: 2,
-                        }}
-                      >
-                        {card.value}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontWeight: 400,
-                          color: "#565d6d",
-                          fontSize: 12,
-                          lineHeight: "16px",
-                        }}
-                      >
-                        {card.subtitle}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
+                      <h3 style={{
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#19191f',
+                        fontSize: '14px',
+                        letterSpacing: '-0.35px',
+                        lineHeight: '20px',
+                        margin: 0,
+                      }}>
+                        {card.title}
+                      </h3>
+                      <IconComponent size={20} />
+                    </div>
+                    <div style={{
+                      fontFamily: 'Roboto',
+                      fontWeight: '700',
+                      color: '#19191f',
+                      fontSize: isMobile ? '20px' : '24px',
+                      lineHeight: isMobile ? '28px' : '36px',
+                      marginBottom: '16px',
+                    }}>
+                      {card.value}
+                    </div>
+                    <p style={{
+                      fontFamily: 'Roboto',
+                      fontWeight: '400',
+                      color: '#565d6d',
+                      fontSize: '12px',
+                      lineHeight: '16px',
+                      margin: 0,
+                    }}>
+                      {card.subtitle}
+                    </p>
+                  </div>
                 );
               })}
-            </Box>
+            </div>
 
             {/* Filter Section */}
-            <Card
-              sx={{
-                boxShadow:
-                  "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
-                border: "none",
-              }}
-            >
-              <CardContent sx={{ p: 3 }}>
-                <Typography
-                  sx={{
-                    fontWeight: 600,
-                    color: "#171a1f",
-                    fontSize: 20,
-                    lineHeight: "28px",
-                    mb: 3,
-                  }}
-                >
-                  Filter Loan Applications
-                </Typography>
+            <div style={{
+              backgroundColor: 'white',
+              padding: isMobile ? '16px' : '24px',
+              borderRadius: '8px',
+              boxShadow: '0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)',
+              border: 'none',
+            }}>
+              <h2 style={{
+                fontFamily: 'Roboto',
+                fontWeight: '600',
+                color: '#171a1f',
+                fontSize: isMobile ? '18px' : '20px',
+                lineHeight: '28px',
+                marginBottom: '24px',
+                margin: '0 0 24px 0',
+              }}>
+                Filter Loan Applications
+              </h2>
 
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(4, 1fr)",
-                    gap: 3,
-                    mb: 3,
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 500,
-                        color: "#323743",
-                        fontSize: 12,
-                        lineHeight: "20px",
-                        mb: 1,
-                      }}
-                    >
-                      Applicant Name
-                    </Typography>
-                    <TextField
-                      placeholder="Search by name..."
-                      size="small"
-                      fullWidth
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          fontSize: 14,
-                          color: "#565d6d",
-                        },
-                      }}
-                    />
-                  </Box>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        lineHeight: "20px",
-                        mb: 1,
-                      }}
-                    >
-                      Loan Type
-                    </Typography>
-                    <FormControl size="small" fullWidth>
-                      <Select
-                        displayEmpty
-                        sx={{
-                          fontSize: 14,
-                          color: "#171a1f",
-                        }}
-                        renderValue={(value: unknown) =>
-                          typeof value === "string" && value !== ""
-                            ? value
-                            : "Select type"
-                        }
-                      >
-                        <MenuItem value="">Select type</MenuItem>
-                        <MenuItem value="mortgage">Mortgage Loan</MenuItem>
-                        <MenuItem value="business">Business Loan</MenuItem>
-                        <MenuItem value="personal">Personal Loan</MenuItem>
-                        <MenuItem value="auto">Auto Loan</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        lineHeight: "20px",
-                        mb: 1,
-                      }}
-                    >
-                      Application Stage
-                    </Typography>
-                    <FormControl size="small" fullWidth>
-                      <Select
-                        displayEmpty
-                        sx={{
-                          fontSize: 14,
-                          color: "#171a1f",
-                        }}
-                        renderValue={(value: unknown) =>
-                          typeof value === "string" && value !== ""
-                            ? value
-                            : "Select stage"
-                        }
-                      >
-                        <MenuItem value="">Select stage</MenuItem>
-                        <MenuItem value="submitted">
-                          Application Submitted
-                        </MenuItem>
-                        <MenuItem value="review">Under Review</MenuItem>
-                        <MenuItem value="approved">Approved</MenuItem>
-                        <MenuItem value="rejected">Rejected</MenuItem>
-                        <MenuItem value="pending">Pending Documents</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 500,
-                        color: "#323743",
-                        fontSize: 12,
-                        lineHeight: "20px",
-                        mb: 1,
-                      }}
-                    >
-                      Loan Amount (min)
-                    </Typography>
-                    <TextField
-                      defaultValue="$0"
-                      size="small"
-                      fullWidth
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          fontSize: 14,
-                          color: "#565d6d",
-                        },
-                      }}
-                    />
-                  </Box>
-                </Box>
-
-                <Box
-                  sx={{ display: "flex", justifyContent: "flex-end", gap: 1.5 }}
-                >
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      px: 2,
-                      py: 1,
-
-                      fontWeight: 500,
-                      color: "#171a1f",
-                      fontSize: 14,
-                      textTransform: "none",
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: `repeat(${getFilterGridCols()}, 1fr)`, 
+                gap: isMobile ? '16px' : '24px', 
+                marginBottom: '24px' 
+              }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontFamily: 'Roboto',
+                    fontWeight: '500',
+                    color: '#323743',
+                    fontSize: '12px',
+                    lineHeight: '20px',
+                    marginBottom: '8px',
+                  }}>
+                    Applicant Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Search by name..."
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      border: '1px solid #ccc',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      fontFamily: 'Roboto',
+                      color: '#565d6d',
+                      outline: 'none',
                     }}
-                  >
-                    Clear Filters
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      px: 2,
-                      py: 1,
-                      bgcolor: "#376fc8",
+                  />
+                </div>
 
-                      fontWeight: 500,
-                      fontSize: 14,
-                      textTransform: "none",
-                      "&:hover": {
-                        bgcolor: "#2d5ba3",
-                      },
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontFamily: 'Roboto',
+                    fontWeight: '500',
+                    color: '#171a1f',
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    marginBottom: '8px',
+                  }}>
+                    Loan Type
+                  </label>
+                  <select style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontFamily: 'Roboto',
+                    color: '#171a1f',
+                    outline: 'none',
+                  }}>
+                    <option value="">Select type</option>
+                    <option value="mortgage">Mortgage Loan</option>
+                    <option value="business">Business Loan</option>
+                    <option value="personal">Personal Loan</option>
+                    <option value="auto">Auto Loan</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontFamily: 'Roboto',
+                    fontWeight: '500',
+                    color: '#171a1f',
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    marginBottom: '8px',
+                  }}>
+                    Application Stage
+                  </label>
+                  <select style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontFamily: 'Roboto',
+                    color: '#171a1f',
+                    outline: 'none',
+                  }}>
+                    <option value="">Select stage</option>
+                    <option value="submitted">Application Submitted</option>
+                    <option value="review">Under Review</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="pending">Pending Documents</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontFamily: 'Roboto',
+                    fontWeight: '500',
+                    color: '#323743',
+                    fontSize: '12px',
+                    lineHeight: '20px',
+                    marginBottom: '8px',
+                  }}>
+                    Loan Amount (min)
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue="$0"
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      border: '1px solid #ccc',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      fontFamily: 'Roboto',
+                      color: '#565d6d',
+                      outline: 'none',
                     }}
-                  >
-                    Apply Filters
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
+                  />
+                </div>
+              </div>
+
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: 'flex-end', 
+                gap: '12px' 
+              }}>
+                <button style={{
+                  padding: '8px 16px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#171a1f',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  fontFamily: 'Roboto',
+                }}>
+                  Clear Filters
+                </button>
+                <button style={{
+                  padding: '8px 16px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: 'white',
+                  backgroundColor: '#376fc8',
+                  cursor: 'pointer',
+                  fontFamily: 'Roboto',
+                }}>
+                  Apply Filters
+                </button>
+              </div>
+            </div>
 
             {/* Applications Table */}
-            <Card
-              sx={{
-                boxShadow:
-                  "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
-                border: "none",
-              }}
-            >
-              <CardContent sx={{ p: 3 }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    mb: 3,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontWeight: 600,
-                      color: "#171a1f",
-                      fontSize: 20,
-                      lineHeight: "28px",
-                    }}
-                  >
-                    Recent Loan Applications
-                  </Typography>
+            <div style={{
+              backgroundColor: 'white',
+              padding: isMobile ? '16px' : '24px',
+              borderRadius: '8px',
+              boxShadow: '0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)',
+              border: 'none',
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                justifyContent: 'space-between', 
+                marginBottom: '24px',
+                gap: isMobile ? '16px' : '0'
+              }}>
+                <h2 style={{
+                  fontFamily: 'Roboto',
+                  fontWeight: '600',
+                  color: '#171a1f',
+                  fontSize: isMobile ? '18px' : '20px',
+                  lineHeight: '28px',
+                  margin: 0,
+                }}>
+                  Recent Loan Applications
+                </h2>
 
-                  <Box sx={{ display: "flex", gap: 1.5 }}>
-                    <Button
-                      variant="outlined"
-                      startIcon={<FileDown size={16} />}
-                      sx={{
-                        px: 1.5,
-                        py: 1,
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: isMobile ? 'column' : 'row',
+                  gap: '12px',
+                  width: isMobile ? '100%' : 'auto'
+                }}>
+                  <button style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px 12px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#171a1f',
+                    backgroundColor: 'white',
+                    cursor: 'pointer',
+                    fontFamily: 'Roboto',
+                  }}>
+                    <FileDown size={16} style={{ marginRight: '8px' }} />
+                    Bulk Export
+                  </button>
+                  <button style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px 12px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#171a1f',
+                    backgroundColor: 'white',
+                    cursor: 'pointer',
+                    fontFamily: 'Roboto',
+                  }}>
+                    <BarChart3 size={16} style={{ marginRight: '8px' }} />
+                    Generate Report
+                  </button>
+                </div>
+              </div>
 
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        textTransform: "none",
-                      }}
-                    >
-                      Bulk Export
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      startIcon={<BarChart3 size={16} />}
-                      sx={{
-                        px: 1.5,
-                        py: 1,
-
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        textTransform: "none",
-                      }}
-                    >
-                      Generate Report
-                    </Button>
-                  </Box>
-                </Box>
-
-                <TableContainer
-                  component={Paper}
-                  sx={{ border: "1px solid #dee1e6", borderRadius: 1 }}
-                >
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                            height: 48,
-                          }}
-                        >
-                          Applicant
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Loan Type
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Amount
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Stage
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Flags/Exceptions
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Submission Date
-                        </TableCell>
-                        <TableCell
-                          align="right"
-                          sx={{
-                            fontWeight: 500,
-                            color: "#565d6d",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Actions
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {loanApplications.map((application, index) => (
-                        <TableRow key={index}>
-                          <TableCell sx={{ py: 2.5 }}>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1.5,
-                              }}
-                            >
-                              <Avatar
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ 
+                  width: '100%', 
+                  minWidth: isMobile ? '800px' : 'auto',
+                  border: '1px solid #dee1e6', 
+                  borderRadius: '8px',
+                  borderCollapse: 'collapse',
+                }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #dee1e6', backgroundColor: '#f9fafb' }}>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '160px',
+                      }}>
+                        Applicant
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '120px',
+                      }}>
+                        Loan Type
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '100px',
+                      }}>
+                        Amount
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '140px',
+                      }}>
+                        Stage
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '140px',
+                      }}>
+                        Flags/Exceptions
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'left',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '120px',
+                      }}>
+                        Submission Date
+                      </th>
+                      <th style={{
+                        padding: '12px 24px',
+                        textAlign: 'right',
+                        fontFamily: 'Roboto',
+                        fontWeight: '500',
+                        color: '#565d6d',
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        minWidth: '120px',
+                      }}>
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loanApplications.map((application, index) => (
+                      <tr key={index} style={{ 
+                        borderBottom: index < loanApplications.length - 1 ? '1px solid #f3f4f6' : 'none'
+                      }}>
+                        <td style={{ padding: '20px 24px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{
+                              width: '32px',
+                              height: '32px',
+                              backgroundColor: application.applicant.bgColor,
+                              borderRadius: '50%',
+                              overflow: 'hidden',
+                            }}>
+                              <img
                                 src={application.applicant.avatar}
-                                sx={{
-                                  width: 32,
-                                  height: 32,
-                                  bgcolor: application.applicant.bgColor,
-                                }}
+                                alt=""
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                               />
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  color: "#171a1f",
-                                  fontSize: 14,
-                                  lineHeight: "20px",
-                                }}
-                              >
-                                {application.applicant.name}
-                              </Typography>
-                            </Box>
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontWeight: 400,
-                              color: "#171a1f",
-                              fontSize: 14,
-                              lineHeight: "20px",
-                            }}
-                          >
-                            {application.loanType}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontWeight: 500,
-                              color: "#171a1f",
-                              fontSize: 14,
-                              lineHeight: "20px",
-                            }}
-                          >
-                            {application.amount}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontWeight: 400,
-                              color: "#171a1f",
-                              fontSize: 14,
-                              lineHeight: "20px",
-                            }}
-                          >
-                            {application.stage}
-                          </TableCell>
-                          <TableCell>
-                            {application.flag && (
-                              <Chip
-                                label={application.flag.text}
-                                size="small"
-                                sx={{
-                                  bgcolor: application.flag.bgColor,
-                                  color: application.flag.textColor,
-
-                                  fontWeight: 600,
-                                  fontSize: 12,
-                                  lineHeight: "20px",
-                                }}
-                              />
-                            )}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              fontWeight: 400,
-                              color: "#171a1f",
-                              fontSize: 14,
-                              lineHeight: "20px",
-                            }}
-                          >
-                            {application.submissionDate}
-                          </TableCell>
-                          <TableCell align="right">
-                            <Button
-                              variant="text"
-                              endIcon={<ExternalLink size={16} />}
-                              sx={{
-                                px: 1,
-                                py: 0.5,
-
-                                fontWeight: 500,
-                                color: "#171a1f",
-                                fontSize: 14,
-                                textTransform: "none",
+                            </div>
+                            <span style={{
+                              fontFamily: 'Roboto',
+                              fontWeight: '500',
+                              color: '#171a1f',
+                              fontSize: '14px',
+                              lineHeight: '20px',
+                            }}>
+                              {application.applicant.name}
+                            </span>
+                          </div>
+                        </td>
+                        <td style={{
+                          padding: '20px 24px',
+                          fontFamily: 'Roboto',
+                          fontWeight: '400',
+                          color: '#171a1f',
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                        }}>
+                          {application.loanType}
+                        </td>
+                        <td style={{
+                          padding: '20px 24px',
+                          fontFamily: 'Roboto',
+                          fontWeight: '500',
+                          color: '#171a1f',
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                        }}>
+                          {application.amount}
+                        </td>
+                        <td style={{
+                          padding: '20px 24px',
+                          fontFamily: 'Roboto',
+                          fontWeight: '400',
+                          color: '#171a1f',
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                        }}>
+                          {application.stage}
+                        </td>
+                        <td style={{ padding: '20px 24px' }}>
+                          {application.flag && (
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                padding: '4px 10px',
+                                borderRadius: '12px',
+                                fontSize: '12px',
+                                fontFamily: 'Roboto',
+                                fontWeight: '600',
+                                lineHeight: '20px',
+                                backgroundColor: application.flag.bgColor,
+                                color: application.flag.textColor,
                               }}
                             >
-                              View Details
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                              {application.flag.text}
+                            </span>
+                          )}
+                        </td>
+                        <td style={{
+                          padding: '20px 24px',
+                          fontFamily: 'Roboto',
+                          fontWeight: '400',
+                          color: '#171a1f',
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                        }}>
+                          {application.submissionDate}
+                        </td>
+                        <td style={{ padding: '20px 24px', textAlign: 'right' }}>
+                          <button style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            padding: '4px 8px',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            fontSize: '14px',
+                            fontFamily: 'Roboto',
+                            fontWeight: '500',
+                            color: '#171a1f',
+                            cursor: 'pointer',
+                          }}>
+                            View Details
+                            <ExternalLink size={16} style={{ marginLeft: '8px' }} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    mt: 3,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontWeight: 400,
-                      color: "#565d6d",
-                      fontSize: 14,
-                      lineHeight: "20px",
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: 'space-between', 
+                alignItems: isMobile ? 'flex-start' : 'center', 
+                marginTop: '24px',
+                gap: isMobile ? '16px' : '0'
+              }}>
+                <p style={{
+                  fontFamily: 'Roboto',
+                  fontWeight: '400',
+                  color: '#565d6d',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  margin: 0,
+                }}>
+                  Showing 5 of 5 applications
+                </p>
+
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    disabled
+                    style={{
+                      padding: '4px 12px',
+                      border: '1px solid #ccc',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      fontFamily: 'Roboto',
+                      fontWeight: '500',
+                      color: '#9ca3af',
+                      backgroundColor: '#f9fafb',
+                      cursor: 'not-allowed',
                     }}
                   >
-                    Showing 5 of 5 applications
-                  </Typography>
-
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <Button
-                      variant="outlined"
-                      disabled
-                      sx={{
-                        px: 1.5,
-                        py: 0.5,
-
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        textTransform: "none",
-                        opacity: 0.5,
-                      }}
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        px: 1.5,
-                        py: 0.5,
-
-                        fontWeight: 500,
-                        color: "#171a1f",
-                        fontSize: 14,
-                        textTransform: "none",
-                      }}
-                    >
-                      Next
-                    </Button>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+                    Previous
+                  </button>
+                  <button style={{
+                    padding: '4px 12px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontFamily: 'Roboto',
+                    fontWeight: '500',
+                    color: '#171a1f',
+                    backgroundColor: 'white',
+                    cursor: 'pointer',
+                  }}>
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   );
-};
+}
