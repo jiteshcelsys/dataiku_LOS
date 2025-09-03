@@ -24,11 +24,9 @@ import { ApplicationReview } from "./components/Application/ApplicationReview";
 import { ApplicationTracker } from "./components/Application/ApplicationTracker";
 import { ApplicationApproved } from "./components/Application/ApplicationApproved";
 import { UserDashboard } from "./components/Dashboard/UserDashboard";
-import { AdminDashboard } from "./components/Dashboard/AdminDashboard";
-import { ApplicationsList } from "./components/Admin/ApplicationsList";
-import { ApplicationDetails } from "./components/Admin/ApplicationDetails";
-import { AlertInbox } from "./components/Admin/AlertInbox";
-import { AdminLayout } from "./components/Layout/AdminLayout";
+import { FinserveSolutionsSubsection } from "./Admin/FinserveSolutionsSubsection";
+import { ProvisoSentinelSubsection } from "./Admin/ProvisoSentinelSubsection";
+import { TalentflowApplicantSubsection } from "./Admin/TalentflowApplicantSubsection";
 
 const theme = createTheme({
   palette: {
@@ -91,9 +89,11 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <Layout>
-                    <HomePage />
-                  </Layout>
+                  <ProtectedRoute>
+                    <Layout>
+                      <DashboardRouter />
+                    </Layout>
+                  </ProtectedRoute>
                 }
               />
               <Route
@@ -152,9 +152,9 @@ function App() {
                 path="/admin/*"
                 element={
                   <ProtectedRoute requireRole="admin">
-                    <AdminLayout>
-                      <AdminRoutes />
-                    </AdminLayout>
+                    {/* <AdminLayout> */}
+                    <AdminRoutes />
+                    {/* </AdminLayout> */}
                   </ProtectedRoute>
                 }
               />
@@ -173,7 +173,7 @@ const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
 
   if (user?.role === "admin") {
-    return <AdminDashboard />;
+    return <FinserveSolutionsSubsection />;
   }
 
   return <UserDashboard />;
@@ -183,14 +183,13 @@ const DashboardRouter: React.FC = () => {
 const AdminRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="dashboard" element={<AdminDashboard />} />
-      <Route path="applications" element={<ApplicationsList />} />
-      <Route path="applications/:id" element={<ApplicationDetails />} />
-      <Route path="alerts" element={<AlertInbox />} />
-      <Route path="alerts/inbox" element={<AlertInbox />} />
-      <Route path="candidates" element={<div>Candidates Page</div>} />
-      <Route path="tasks" element={<div>Tasks Page</div>} />
-      <Route path="settings" element={<div>Settings Page</div>} />
+      <Route path="dashboard" element={<FinserveSolutionsSubsection />} />
+      <Route path="applications" element={<ProvisoSentinelSubsection />} />
+      <Route
+        path="applications/:id"
+        element={<TalentflowApplicantSubsection />}
+      />
+      <Route path="alerts" element={<TalentflowApplicantSubsection />} />
       <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
     </Routes>
   );
@@ -211,7 +210,7 @@ const ApplicationRoutes: React.FC = () => {
 
       <Route
         path="*"
-        element={<Navigate to="/application/personal-details" replace />}
+        element={<Navigate to="/user/personal-details" replace />}
       />
     </Routes>
   );
