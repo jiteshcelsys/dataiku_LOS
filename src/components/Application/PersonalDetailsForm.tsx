@@ -134,7 +134,7 @@ export const PersonalDetailsForm: React.FC = () => {
           Personal Details
         </Typography>
         <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="First Name"
@@ -143,7 +143,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="Last Name"
@@ -152,7 +152,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="Middle Name (Optional)"
@@ -161,36 +161,34 @@ export const PersonalDetailsForm: React.FC = () => {
             />
           </Grid>
         </Grid>
-        <Box mb={3}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Datef of Birth"
-              type="date"
-              value={formData.dateOfBirth}
-              onChange={handleChange("dateOfBirth")}
-              InputLabelProps={{ shrink: true }}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} mt={3}>
-            <TextField
-              fullWidth
-              label="SSN / SIN"
-              value={formData.ssn}
-              onChange={handleChange("ssn")}
-              placeholder="XXX-XX-XXXX (US) or XXX-XXX-XXX (CA)"
-              required
-            />
-          </Grid>
-        </Box>
+        <Grid item size={12}>
+          <TextField
+            fullWidth
+            label="Datef of Birth"
+            type="date"
+            value={formData.dateOfBirth}
+            onChange={handleChange("dateOfBirth")}
+            InputLabelProps={{ shrink: true }}
+            required
+          />
+        </Grid>
+        <Grid item size={12} mt={3}>
+          <TextField
+            fullWidth
+            label="SSN / SIN"
+            value={formData.ssn}
+            onChange={handleChange("ssn")}
+            placeholder="XXX-XX-XXXX (US) or XXX-XXX-XXX (CA)"
+            required
+          />
+        </Grid>
 
         {/* Contact Info */}
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
           Contact Information
         </Typography>
         <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               label="Email"
@@ -199,7 +197,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               label="Phone"
@@ -208,7 +206,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item size={12}>
             <TextField
               fullWidth
               label="Street Address"
@@ -217,7 +215,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="City"
@@ -226,7 +224,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="State / Province"
@@ -235,7 +233,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item size={4}>
             <TextField
               fullWidth
               label="Zip / Postal Code"
@@ -251,7 +249,7 @@ export const PersonalDetailsForm: React.FC = () => {
           Employment & Income
         </Typography>
         <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               select
@@ -269,7 +267,7 @@ export const PersonalDetailsForm: React.FC = () => {
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               select
@@ -287,7 +285,7 @@ export const PersonalDetailsForm: React.FC = () => {
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item size={12}>
             <TextField
               fullWidth
               type="number"
@@ -304,7 +302,7 @@ export const PersonalDetailsForm: React.FC = () => {
           Loan Request Details
         </Typography>
         <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               label="Loan Amount"
@@ -314,7 +312,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={6}>
             <TextField
               fullWidth
               type="number"
@@ -324,7 +322,7 @@ export const PersonalDetailsForm: React.FC = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item size={12}>
             <TextField
               fullWidth
               type="text"

@@ -17,7 +17,7 @@ import { Plus, FileText, TrendingUp } from "lucide-react";
 export const UserDashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { applications } = useApplication();
+  const { currentApplication, applications } = useApplication();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -29,6 +29,14 @@ export const UserDashboard: React.FC = () => {
         return "error";
       default:
         return "default";
+    }
+  };
+  const handleViwewDetails = () => {
+    console.log(currentApplication, " currentApplication?.status");
+    if (currentApplication?.status === "approved") {
+      navigate("/application/approved");
+    } else {
+      navigate("/application/tracker");
     }
   };
 
@@ -128,7 +136,7 @@ export const UserDashboard: React.FC = () => {
                             <Button
                               size="small"
                               variant="outlined"
-                              onClick={() => navigate("/application/tracker")}
+                              onClick={handleViwewDetails}
                             >
                               View Details
                             </Button>

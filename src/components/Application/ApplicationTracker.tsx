@@ -32,7 +32,7 @@ const applicationSteps = [
 
 export const ApplicationTracker: React.FC = () => {
   const navigate = useNavigate();
-  const { currentApplication, offers } = useApplication();
+  const { currentApplication, offers, updateApplication } = useApplication();
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
@@ -51,8 +51,12 @@ export const ApplicationTracker: React.FC = () => {
   }, [currentApplication?.status]);
 
   const handleCheckStatus = () => {
+    console.log("Checking application status...", currentApplication);
+    updateApplication({ status: "approved" });
     if (currentApplication?.status === "approved") {
-      navigate("/application/approved");
+      navigate("/user/approved");
+    } else if (currentApplication?.status === "draft") {
+      navigate("/user/approved");
     }
   };
 
