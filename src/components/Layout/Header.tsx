@@ -99,43 +99,9 @@ export const Header: React.FC<HeaderProps> = ({
             Celestial Systems
           </Typography>
         </Box>
-
-        {/* Right side */}
         {user ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {/* <Typography
-              variant="body2"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              Welcome, {user.firstName}
-            </Typography> */}
-            <Box sx={{ flexGrow: 1, maxWidth: 300 }}>
-              {/* <SearchIcon /> */}
-              <TextField
-                size="small"
-                placeholder="Search..."
-                variant="outlined"
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon fontSize="small" />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  bgcolor: "white",
-                  borderRadius: 2,
-                  "& .MuiOutlinedInput-root": {
-                    height: 36,
-                    fontSize: "0.875rem",
-                  },
-                }}
-              />
-            </Box>
-
             <Button
-              // color="inherit"
               sx={{ color: "#343b41ff" }}
               onClick={handleProfileMenuOpen}
               startIcon={
@@ -143,9 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
                   {user.firstName[0]}
                 </Avatar>
               }
-            >
-              <Box sx={{ display: { xs: "none", sm: "block" } }}>Profile</Box>
-            </Button>
+            ></Button>
 
             <Menu
               anchorEl={anchorEl}
