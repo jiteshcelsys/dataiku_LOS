@@ -56,14 +56,17 @@ export const LoanSelection: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        maxHeight: "calc(100vh - 75px)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         bgcolor: "#f5f5f5",
       }}
     >
-      <Container maxWidth="lg" sx={{ py: { xs: 4, sm: 6 } }}>
+      <Container
+        maxWidth="lg"
+        sx={{ py: { xs: 4, sm: 6, paddingTop: "0px", paddingBottom: "0px" } }}
+      >
         {/* Header */}
         <Box
           sx={{
@@ -98,13 +101,15 @@ export const LoanSelection: React.FC = () => {
         </Box>
 
         {/* Loan Cards */}
+
         <Grid
           container
           spacing={3}
+          justifyContent="center"
           sx={{
             mb: { xs: 3, sm: 4 },
-            justifyContent: "center",
-            alignItems: "center",
+
+            justifyContent: "flex-start",
           }}
         >
           {loanTypes.map((loan) => (
@@ -113,8 +118,11 @@ export const LoanSelection: React.FC = () => {
               item
               xs={12} // ✅ MUI v7 supports gridSize shorthand again
               sm={6}
-              md={4}
-              sx={{ maxWidth: 400 }}
+              md={3}
+              // sx={{ maxWidth: 300 }}
+              sx={{
+                maxWidth: 300,
+              }}
             >
               <LoanTypeCard
                 title={loan.title}

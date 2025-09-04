@@ -92,18 +92,46 @@ export const DocumentUpload: React.FC = () => {
   const [selectedLoanType, setSelectedLoanType] = useState("Mortgage Loan");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedDocument[]>([]);
 
-  const handleFileUpload = (documentType: string) => {
-    // Mock file upload
-    const mockFile: UploadedDocument = {
+  // const handleFileUpload = (documentType: string) => {
+  //   // Mock file upload
+  //   const mockFile: UploadedDocument = {
+  //     id: Date.now().toString(),
+  //     name: `${documentType}_document.pdf`,
+  //     type: documentType,
+  //     size: Math.floor(Math.random() * 1000000),
+  //     uploadDate: new Date(),
+  //     required: true,
+  //   };
+
+  //   setUploadedFiles((prev) => [...prev, mockFile]);
+  // };
+  const handleFileUpload = (
+    documentType: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // ✅ Allowed formats
+    const allowedFormats = ["application/pdf", "image/jpeg", "image/png"];
+    if (!allowedFormats.includes(file.type)) {
+      alert("Invalid file format. Please upload PDF, JPG, or PNG.");
+      return;
+    }
+
+    const uploadedDoc: UploadedDocument = {
       id: Date.now().toString(),
-      name: `${documentType}_document.pdf`,
+      name: file.name,
       type: documentType,
-      size: Math.floor(Math.random() * 1000000),
+      size: file.size,
       uploadDate: new Date(),
       required: true,
     };
 
-    setUploadedFiles((prev) => [...prev, mockFile]);
+    setUploadedFiles((prev) => [
+      ...prev.filter((f) => f.type !== documentType), // replace if already uploaded
+      uploadedDoc,
+    ]);
   };
 
   const handleFileRemove = (fileId: string) => {
@@ -209,7 +237,7 @@ export const DocumentUpload: React.FC = () => {
                     <Chip label="Required" color="error" size="small" />
                   )}
                 </Box>
-                <Button
+                {/* <Button
                   variant="outlined"
                   size="small"
                   startIcon={<Upload size={16} />}
@@ -217,6 +245,20 @@ export const DocumentUpload: React.FC = () => {
                   sx={{ mt: 1 }}
                 >
                   Upload Document
+                </Button> */}
+                <Button
+                  variant="outlined"
+                  size="small"
+                  component="label" // <-- makes button act as a label
+                  startIcon={<Upload size={16} />}
+                  sx={{ mt: 1 }}
+                >
+                  Upload Document
+                  <input
+                    type="file"
+                    hidden
+                    onChange={(e) => handleFileUpload(doc.type, e)}
+                  />
                 </Button>
               </ListItem>
             ))}
