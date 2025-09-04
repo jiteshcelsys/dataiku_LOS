@@ -143,7 +143,7 @@ export const PersonalDetailsForm: React.FC = () => {
           gutterBottom
           sx={{
             fontWeight: 600,
-            top: 64,
+            top: 50,
             position: "sticky", // ✅ keeps it stuck
             // top: 0, // ✅ distance from top
             backgroundColor: "white", // ✅ avoid overlap
@@ -183,7 +183,7 @@ export const PersonalDetailsForm: React.FC = () => {
           </Grid>
           <Grid item size={4}>
             <Typography variant="body1" sx={labelStyle}>
-              Middle Name
+              Middle Name (Optional)
             </Typography>
             <TextField
               fullWidth
@@ -213,11 +213,9 @@ export const PersonalDetailsForm: React.FC = () => {
           </Typography>
           <TextField
             fullWidth
-            // label="Datef of Birth"
             type="date"
             value={formData.dateOfBirth}
             onChange={handleChange("dateOfBirth")}
-            InputLabelProps={{ shrink: true }}
             required
           />
         </Grid>

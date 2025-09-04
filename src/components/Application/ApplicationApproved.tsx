@@ -9,10 +9,12 @@ import {
   CardContent,
   Grid,
   Divider,
+  Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
-import { CheckCircle, Download, FileText } from "lucide-react";
+import { CheckCircle, CheckIcon, Download, FileText } from "lucide-react";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 
 export const ApplicationApproved: React.FC = () => {
   const navigate = useNavigate();
@@ -39,150 +41,156 @@ export const ApplicationApproved: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Paper elevation={2} sx={{ p: 4, textAlign: "center" }}>
+      <Paper elevation={2} sx={{ p: 4 }}>
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             mb: 3,
-            color: "#4caf50",
+            flexDirection: "column",
+            alignItems: "center",
+            color: "#3962d1ff",
+            borderRadius: "10%",
+            gap: 4,
           }}
         >
-          <CheckCircle size={80} />
+          <CheckCircleOutlineOutlined sx={{ fontSize: 80 }} />
+          <Chip
+            label={"Approved"}
+            // color={isUploaded ? "success" : "default"}
+            size="medium"
+            variant="filled"
+            sx={{
+              mb: 1,
+              backgroundColor: "#376FC8", // custom background
+              color: "white", // text color
+              fontWeight: 600,
+              fontSize: 20,
+              // optional, make text bold
+            }}
+          />
         </Box>
-
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{ fontWeight: 600, color: "#4caf50" }}
-        >
-          Your Loan Application Has Been Approved!
-        </Typography>
 
         {(currentOffer || true) && (
           <Box sx={{ my: 4 }}>
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-              Your Loan Offer
-            </Typography>
-
-            <Grid container spacing={3} sx={{ mb: 4 }}>
-              <Grid item size={3}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      Loan Amount
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 600, color: "#1976d2" }}
-                    >
-                      {/* ${currentOffer.amount.toLocaleString()}
-                       */}
-                      60000
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item size={3}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      Monthly Payment
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: 600, color: "#1976d2" }}
-                    >
-                      {/* ${currentOffer.monthlyPayment.toFixed(2)} */}
-                      $450.00
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item size={3}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      Interest Rate
-                    </Typography>
-                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                      {/* {currentOffer.interestRate}% APR */}
-                      12%
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item size={3}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      Term
-                    </Typography>
-                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                      {/* {currentOffer.termMonths} Months */}8 Months
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Divider sx={{ my: 4 }} />
-
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-              Review Your Contract
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              Your personalized loan offer document is ready for download.
-              Please review all terms and conditions carefully before
-              proceeding.
-            </Typography>
-
-            <Button
-              variant="outlined"
-              startIcon={<Download size={20} />}
-              onClick={handleDownloadContract}
-              sx={{ mb: 4, mr: 2 }}
-            >
-              Download Loan Offer PDF
-            </Button>
-
-            <Divider sx={{ my: 4 }} />
-
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-              Digitally Sign Your Contract
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              To finalize your loan, please provide your e-signature below. This
-              acts as your legal agreement to the terms.
-            </Typography>
-
-            <Box
-              sx={{
-                border: "2px dashed #ccc",
-                borderRadius: 2,
-                p: 4,
-                mb: 3,
-                bgcolor: "#fafafa",
-              }}
-            >
-              <Typography variant="body2" color="text.secondary" align="center">
-                Click to sign your loan
+            <Card sx={{ p: 4, borderRadius: 3, boxShadow: 1, mb: 4 }}>
+              {/* Title */}
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ fontWeight: 600, mb: 3 }}
+              >
+                Your Loan Offer
               </Typography>
-            </Box>
 
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleSignContract}
+              {/* Two Column Layout */}
+              <Grid container spacing={6} justifyContent="space-between">
+                {/* Left Column */}
+                <Grid item xs={12} md={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Loan Amount
+                  </Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
+                    $25,000.00
+                    {/* ${currentOffer.amount.toLocaleString()}
+                     */}
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary">
+                    Loan Term
+                  </Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                    48 Months
+                  </Typography>
+                </Grid>
+
+                {/* Right Column */}
+                <Grid item xs={12} md={6}>
+                  <Typography variant="body2" color="text.secondary">
+                    Interest Rate
+                  </Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
+                    6.5% APR
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary">
+                    Estimated Monthly Payment
+                  </Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                    $590.25
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Card>
+
+            <Card sx={{ p: 4, borderRadius: 3, boxShadow: 1, mb: 4 }}>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Review Your Contract
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                Your personalized loan offer document is ready for download.
+                Please review all terms and conditions carefully before
+                proceeding.
+              </Typography>
+
+              <Button
+                variant="contained"
+                startIcon={<Download size={20} />}
+                onClick={handleDownloadContract}
+                sx={{ mb: 4, mr: 2 }}
+              >
+                Download Loan Offer PDF
+              </Button>
+            </Card>
+
+            <Card
               sx={{
-                px: 4,
-                py: 1.5,
-                bgcolor: "#4caf50",
-                "&:hover": { bgcolor: "#388e3c" },
+                p: 4,
+                borderRadius: 3,
+                boxShadow: 1,
+                mb: 4,
+                backgroundColor: "#f3f6fc",
               }}
             >
-              Sign Contract Now
-            </Button>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Digitally Sign Your Contract
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                To finalize your loan, please provide your e-signature below.
+                This acts as your legal agreement to the terms.
+              </Typography>
+
+              <Box
+                sx={{
+                  border: "2px dashed #ccc",
+                  borderRadius: 2,
+                  p: 4,
+                  mb: 3,
+                  bgcolor: "#DDE0E5",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                >
+                  Click or tap to sign here
+                </Typography>
+              </Box>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={handleSignContract}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  bgcolor: "#376FC8",
+                  "&:hover": { bgcolor: "#388e3c" },
+                }}
+              >
+                Sign Contract Now
+              </Button>
+            </Card>
           </Box>
         )}
 

@@ -70,7 +70,7 @@ export const HomePage: React.FC = () => {
                     sx={{
                       bgcolor: "white",
                       color: "#1976d2",
-                      "&:hover": { bgcolor: "#f5f5f5" },
+                      "&:hover": { bgcolor: "#FFFFFF" },
                       px: 4,
                       py: 1.5,
                     }}
@@ -86,7 +86,7 @@ export const HomePage: React.FC = () => {
                       sx={{
                         bgcolor: "white",
                         color: "#1976d2",
-                        "&:hover": { bgcolor: "#f5f5f5" },
+                        "&:hover": { bgcolor: "#FFFFFF" },
                         px: 4,
                         py: 1.5,
                       }}

@@ -98,7 +98,7 @@ export default function AdminDashboard() {
       stage: "Under Review",
       flag: {
         text: "Missing Documents",
-        bgColor: "#f5f5f5",
+        bgColor: "#FFFFFF",
         textColor: "#1e2128",
       },
       submissionDate: "2024-07-28",
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
                   borderRadius: "8px",
                   border: "none",
                   cursor: "pointer",
-                  backgroundColor: item.active ? "#f5f5f5" : "transparent",
+                  backgroundColor: item.active ? "#FFFFFF" : "transparent",
                   color: item.active ? "#1e2128" : "#565d6d",
                   transition: "all 0.2s",
                 }}

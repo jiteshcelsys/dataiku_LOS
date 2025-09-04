@@ -15,17 +15,25 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
-import { Car, CheckCircle, Clock, FileText } from "lucide-react";
+import {
+  Car,
+  CheckCircle,
+  CheckIcon,
+  Circle,
+  Clock,
+  FileText,
+} from "lucide-react";
 
 const applicationSteps = [
-  { label: "Submitted", description: "Application submitted successfully" },
+  { label: "Applied", description: "Application submitted and received" },
   {
-    label: "Under Review",
-    description: "Our team has begun initial underwriting assessment",
+    label: "Docs Review",
+    description: "All required documents have been sucessfully received",
   },
   {
     label: "KYC/Credit Check",
-    description: "Background and credit verification in progress",
+    description:
+      "Your application is currently undergoin an in-depth KYC(Know Your Customer) and credit assessment",
   },
   { label: "Decision", description: "Final decision pending" },
 ];
@@ -72,7 +80,21 @@ export const ApplicationTracker: React.FC = () => {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper variant="outlined" sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          // sx={{ fontWeight: 600 }}
+          // gutterBottom
+          sx={{
+            fontWeight: 600,
+            top: 50,
+            position: "sticky", // ✅ keeps it stuck
+            // top: 0, // ✅ distance from top
+            backgroundColor: "white", // ✅ avoid overlap
+            zIndex: 10, // ✅ stay above form elements
+            py: 2, // add padding if needed
+          }}
+        >
           Application Tracker
         </Typography>
         <Box
@@ -102,14 +124,18 @@ export const ApplicationTracker: React.FC = () => {
                           height: 24,
                           borderRadius: "50%",
                           bgcolor: completed
-                            ? "#4caf50"
+                            ? "#1976d2"
                             : active
                               ? "#1976d2"
                               : "#e0e0e0",
                           color: "white",
                         }}
                       >
-                        {completed ? <CheckCircle size={16} /> : index + 1}
+                        {completed ? (
+                          <CheckIcon size={16} />
+                        ) : (
+                          <Circle size={4} fill="white" />
+                        )}
                       </Box>
                     )}
                   >
