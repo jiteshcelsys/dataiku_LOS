@@ -119,7 +119,7 @@ export const LoginForm: React.FC = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ mt: 3, p: 2, bgcolor: "#f0f7ff", borderRadius: 1 }}>
+          {/* <Box sx={{ mt: 3, p: 2, bgcolor: "#f0f7ff", borderRadius: 1 }}>
             <Typography variant="body2" sx={{ fontWeight: 500, mb: 1 }}>
               Demo Accounts:
             </Typography>
@@ -129,7 +129,7 @@ export const LoginForm: React.FC = () => {
             <Typography variant="body2">
               User: user@example.com / user123
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Paper>
     </Box>

@@ -43,6 +43,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AvatarI from "../assets/avatar.jpg";
 
 const navigationItems = [
   {
@@ -364,12 +365,27 @@ export const AdminAlertInbox = (): JSX.Element => {
               <IconButton>
                 <HelpCircle size={16} />
               </IconButton>
-              <Avatar
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  backgroundColor: "#e6f8f3",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={AvatarI}
+                  alt="Avatar"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+              {/* <Avatar
                 src="/rectangle-13.png"
                 sx={{ width: 36, height: 36, bgcolor: "#e6f8f3" }}
               >
                 U
-              </Avatar>
+              </Avatar> */}
             </Box>
           </Toolbar>
         </AppBar>
@@ -402,9 +418,14 @@ export const AdminAlertInbox = (): JSX.Element => {
               return (
                 <Card
                   key={index}
+                  // sx={{
+                  //   boxShadow:
+                  //     "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
+                  // }}
                   sx={{
                     boxShadow:
-                      "0px 0px 1px rgba(23, 26, 31, 0.05), 0px 0px 2px rgba(23, 26, 31, 0.08)",
+                      "0px 4px 12px rgba(23, 26, 31, 0.12), 0px 2px 4px rgba(23, 26, 31, 0.08)",
+                    borderRadius: 2,
                   }}
                 >
                   <CardContent sx={{ p: 3 }}>
