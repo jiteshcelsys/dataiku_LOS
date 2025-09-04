@@ -9,3 +9,9 @@ export const useDrawerToggle = () => {
 
   return { mobileOpen, handleDrawerToggle, setMobileOpen };
 };
+export const labelStyle = {
+  fontWeight: 500,
+  color: "text.primary",
+  mb: 1,
+  fontSize: "1rem",
+};
