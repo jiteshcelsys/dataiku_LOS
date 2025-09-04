@@ -17,6 +17,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { Building2, User, LogOut } from "lucide-react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+// import Celestial_Systems from "src\assets\Celestial_Systems.jpg";
+
+import download from "../../assets/download.png";
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -51,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
       position="sticky"
       // position={position}
       sx={{
-        bgcolor: "#b9d4efff",
+        bgcolor: "#FFFFFF",
         borderRadius: 0,
         boxShadow: "none",
         zIndex: (theme) => theme.zIndex.drawer + 1,
@@ -72,7 +75,16 @@ export const Header: React.FC<HeaderProps> = ({
             </IconButton>
           )}
 
-          <Building2 size={24} />
+          {/* <Building2 size={24} /> */}
+          <Box
+            component="img"
+            src={download} // ✅ your logo path (put in public folder or import)
+            alt="Celestial Systems"
+            sx={{
+              height: 40, // set desired height
+              width: "auto", // keeps aspect ratio
+            }}
+          />
           <Typography
             variant="h6"
             component={Link}

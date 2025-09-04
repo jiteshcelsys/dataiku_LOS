@@ -60,7 +60,7 @@ export const LoanSelection: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        bgcolor: "#f5f5f5",
+        bgcolor: "#FFFFFF",
       }}
     >
       <Container

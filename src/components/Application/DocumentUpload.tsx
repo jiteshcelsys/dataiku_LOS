@@ -22,11 +22,15 @@ import {
   Grid,
   CardContent,
   Card,
+  Divider,
+  TextField,
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
 import { Upload, FileText, Trash2 } from "lucide-react";
 import type { UploadedDocument } from "../../types";
+import { labelStyle } from "../../Helper/useDrawerToggle";
 
 const steps = [
   "Personal Details",
@@ -78,6 +82,13 @@ const requiredDocuments = [
     description: "Evidence of funds for Closing costs",
   },
 ];
+const Loan_purposes = [
+  "Personal Loan",
+  "Auto Loan",
+  "Business Loan",
+  "Mortgage",
+  "Line of Credit",
+];
 const PayStubs = [
   {
     type: "paystubs",
@@ -89,7 +100,7 @@ const PayStubs = [
 export const DocumentUpload: React.FC = () => {
   const navigate = useNavigate();
   const { currentApplication, updateApplication } = useApplication();
-  const [selectedLoanType, setSelectedLoanType] = useState("Mortgage Loan");
+  const [selectedLoanType, setSelectedLoanType] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedDocument[]>([]);
 
   // const handleFileUpload = (documentType: string) => {
@@ -162,7 +173,7 @@ export const DocumentUpload: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 4 }}>
       {/* <Paper elevation={2} sx={{ p: 4 }}> */}
       {/* <Stepper activeStep={3} sx={{ mb: 4 }}>
           {steps.map((label) => (
@@ -172,97 +183,177 @@ export const DocumentUpload: React.FC = () => {
           ))}
         </Stepper> */}
 
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+      {/* <Typography
+        variant="h4"
+        gutterBottom
+        // sx={{ fontWeight: 600 }}
+        sx={{
+          fontWeight: 600,
+          top: 50,
+          position: "sticky", // ✅ keeps it stuck
+          // top: 0, // ✅ distance from top
+          backgroundColor: "white", // ✅ avoid overlap
+          zIndex: 10, // ✅ stay above form elements
+          py: 2, // add padding if needed
+        }}
+      >
         Document Upload
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+      </Typography> */}
+      {/* <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
         Please upload the required documents for your loan application.
-      </Typography>
-      <Grid container spacing={4}>
+      </Typography> */}
+      <Grid container spacing={4} sx={{ justifyContent: "space-around" }}>
         <Grid item xs={12} md={6}>
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Loan Type
-            </Typography>
-            <FormControl fullWidth>
-              <InputLabel>
-                Select your loan type to view specific document requirements
-              </InputLabel>
-              <Select
+          <Card
+            sx={{
+              mb: 3,
+              width: {
+                xs: "100%", // full width on extra-small screens (mobile)
+                sm: "600px", // up to 600px on small screens (tablets)
+                md: "800px", // up to 800px on medium+ (desktop)
+              },
+              mx: "auto", // center horizontally
+            }}
+          >
+            <CardContent>
+              {/* <Typography variant="h6" gutterBottom>
+                Loan Type
+              </Typography>
+              <FormControl fullWidth>
+                {selectedLoanType ? null : (
+                  <InputLabel>
+                    Select your loan type to view specific document requirements
+                  </InputLabel>
+                )}
+                <Select
+                  value={selectedLoanType}
+                  onChange={(e) => setSelectedLoanType(e.target.value)}
+                  label="Select your loan type to view specific document requirements"
+                >
+                  <MenuItem value="Mortgage Loan">Mortgage Loan</MenuItem>
+                  <MenuItem value="Personal Loan">Personal Loan</MenuItem>
+                  <MenuItem value="Auto Loan">Auto Loan</MenuItem>
+                  <MenuItem value="Business Loan">Business Loan</MenuItem>
+                </Select>
+              </FormControl> */}
+              {/* <Typography variant="body1" sx={labelStyle}>
+                Loan Type
+              </Typography> */}
+              <Typography variant="h6" gutterBottom>
+                Loan Type
+              </Typography>
+              <TextField
+                fullWidth
+                select
+                label={selectedLoanType ? null : "Mortage Loan"}
                 value={selectedLoanType}
                 onChange={(e) => setSelectedLoanType(e.target.value)}
-                label="Select your loan type to view specific document requirements"
+                defaultValue="Student"
               >
-                <MenuItem value="Mortgage Loan">Mortgage Loan</MenuItem>
-                <MenuItem value="Personal Loan">Personal Loan</MenuItem>
-                <MenuItem value="Auto Loan">Auto Loan</MenuItem>
-                <MenuItem value="Business Loan">Business Loan</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+                <MenuItem value="" disabled>
+                  Mortage Loan
+                </MenuItem>
+                {Loan_purposes.map((purpose) => (
+                  <MenuItem key={purpose} value={purpose}>
+                    {purpose}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Required Documents
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                A checklist of documents based on your selected loan type:
+              </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            Required Documents
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            A checklist of documents based on your selected loan type:
-          </Typography>
+              <List>
+                {requiredDocuments.map((doc, index) => {
+                  const isUploaded = uploadedFiles.find(
+                    (f) => f.type === doc.type
+                  );
 
-          <List>
-            {requiredDocuments.map((doc, index) => (
-              <ListItem
-                key={doc.type}
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  py: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    mb: 1,
-                  }}
-                >
-                  <FileText size={20} className="mr-2" />
-                  <ListItemText
-                    primary={doc.label}
-                    secondary={doc.description}
-                  />
-                  {uploadedFiles.find((f) => f.type === doc.type) ? (
-                    <Chip label="Uploaded" color="success" size="small" />
-                  ) : (
-                    <Chip label="Required" color="error" size="small" />
-                  )}
-                </Box>
-                {/* <Button
-                  variant="outlined"
-                  size="small"
-                  startIcon={<Upload size={16} />}
-                  onClick={() => handleFileUpload(doc.type)}
-                  sx={{ mt: 1 }}
-                >
-                  Upload Document
-                </Button> */}
-                <Button
-                  variant="outlined"
-                  size="small"
-                  component="label" // <-- makes button act as a label
-                  startIcon={<Upload size={16} />}
-                  sx={{ mt: 1 }}
-                >
-                  Upload Document
-                  <input
-                    type="file"
-                    hidden
-                    onChange={(e) => handleFileUpload(doc.type, e)}
-                  />
-                </Button>
-              </ListItem>
-            ))}
-          </List>
+                  return (
+                    <React.Fragment key={doc.type}>
+                      <ListItem
+                        sx={{
+                          py: 2,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {/* Left side */}
+                        <Box>
+                          <Typography
+                            variant="subtitle1"
+                            sx={{ fontWeight: 600 }}
+                          >
+                            <span style={{ color: "blue" }}>* </span>
+                            {doc.label}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {doc.description}
+                          </Typography>
+                        </Box>
+
+                        {/* Right side */}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <Chip
+                            label={isUploaded ? "Uploaded" : "Pending Upload"}
+                            color={isUploaded ? "success" : "default"}
+                            size="small"
+                            sx={{ mb: 1 }}
+                          />
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              color: "text.secondary",
+                              mb: 1,
+                            }}
+                          >
+                            <InfoOutlinedIcon
+                              fontSize="small"
+                              sx={{ mr: 0.5 }}
+                            />
+                            <Typography variant="body2">Required</Typography>
+                          </Box>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            component="label"
+                            startIcon={<Upload size={16} />}
+                          >
+                            Upload Document
+                            <input
+                              type="file"
+                              hidden
+                              onChange={(e) => handleFileUpload(doc.type, e)}
+                            />
+                          </Button>
+                        </Box>
+                      </ListItem>
+
+                      {/* Divider after each ListItem except the last */}
+                      {index < requiredDocuments.length - 1 && (
+                        <Divider component="li" />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </List>
+            </CardContent>
+          </Card>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -337,7 +428,7 @@ export const DocumentUpload: React.FC = () => {
             </Box>
           </Card>
 
-          {uploadedFiles.length > 0 && (
+          {/* {uploadedFiles.length > 0 && (
             <Box>
               <Typography variant="h6" gutterBottom>
                 Uploaded Files
@@ -362,33 +453,25 @@ export const DocumentUpload: React.FC = () => {
                 ))}
               </List>
             </Box>
-          )}
+          )} */}
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Button variant="outlined" size="large" sx={{ px: 4 }}>
+                Save Draft
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                size="large"
+                sx={{ px: 4 }}
+              >
+                Submit for Review
+              </Button>
+            </Box>
+          </Box>
         </Grid>
       </Grid>
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}>
-        {/* <Button
-          variant="outlined"
-          onClick={handleBack}
-          size="large"
-          sx={{ px: 4 }}
-        >
-          Back
-        </Button> */}
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <Button variant="outlined" size="large" sx={{ px: 4 }}>
-            Save Draft
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleNext}
-            size="large"
-            sx={{ px: 4 }}
-          >
-            Submit for Review
-          </Button>
-        </Box>
-      </Box>
       {/* </Paper> */}
     </Container>
   );
