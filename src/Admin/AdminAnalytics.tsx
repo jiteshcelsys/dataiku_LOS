@@ -23,6 +23,7 @@ import {
   Users,
 } from "lucide-react";
 import { type JSX } from "react";
+import AvatarI from "../assets/avatar.jpg";
 import {
   AppBar,
   Avatar,
@@ -434,12 +435,25 @@ export const AdminAnalytics = (): JSX.Element => {
             >
               Deny
             </Button>
-            <Avatar
-              src="/rectangle-11.png"
-              sx={{ width: 36, height: 36, bgcolor: "#e6f8f3", ml: 1 }}
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                backgroundColor: "#e6f8f3",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
             >
-              U
-            </Avatar>
+              <img
+                src={AvatarI}
+                alt="Avatar"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
           </Toolbar>
         </AppBar>
 

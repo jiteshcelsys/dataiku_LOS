@@ -465,7 +465,15 @@ export const PersonalDetailsForm: React.FC = () => {
                 }
               />
             }
-            label="I accept the Terms & Conditions"
+            label={
+              <>
+                I agree to the{" "}
+                <span style={{ color: "#1976d2", fontWeight: 500 }}>
+                  Terms &amp; Conditions
+                </span>{" "}
+                and authorize a credit check
+              </>
+            }
           />
         </Box>
         {/* Submit Button */}
