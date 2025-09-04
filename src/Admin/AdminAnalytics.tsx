@@ -51,6 +51,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import download from "../assets/download.png";
 
 export const AdminAnalytics = (): JSX.Element => {
   const navigate = useNavigate();
@@ -245,13 +246,29 @@ export const AdminAnalytics = (): JSX.Element => {
         }}
       >
         {/* Logo */}
-        <Box sx={{ p: 1.5 }}>
+        <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
           <img
-            style={{ width: 198, height: 52 }}
+            style={{
+              width: "100%",
+              maxWidth: "198px",
+              height: "52px",
+              objectFit: "contain",
+            }}
             alt="Logo"
-            src="/image-1.png"
+            // sr{c="/image.png"
+            src={download}
           />
-        </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 600,
+              color: "#6B6B6B",
+              fontSize: 18,
+            }}
+          >
+            CELESTIAL SYSTEMS
+          </Typography>
+        </div>
 
         {/* Navigation */}
         <Box sx={{ flexGrow: 1, px: 0.5, py: 2 }}>

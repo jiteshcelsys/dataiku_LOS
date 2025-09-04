@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { type JSX } from "react";
+import download from "../assets/download.png";
 import {
   AppBar,
   Avatar,
@@ -193,13 +194,29 @@ export const AdminAlertInbox = (): JSX.Element => {
         }}
       >
         {/* Logo */}
-        <Box sx={{ p: 2 }}>
+        <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
           <img
-            style={{ width: 198, height: 52 }}
+            style={{
+              width: "100%",
+              maxWidth: "198px",
+              height: "52px",
+              objectFit: "contain",
+            }}
             alt="Logo"
-            src="/image-4.png"
+            // sr{c="/image.png"
+            src={download}
           />
-        </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 600,
+              color: "#6B6B6B",
+              fontSize: 18,
+            }}
+          >
+            CELESTIAL SYSTEMS
+          </Typography>
+        </div>
 
         {/* Navigation */}
         <List sx={{ flexGrow: 1, px: 1 }}>
@@ -662,7 +679,7 @@ export const AdminAlertInbox = (): JSX.Element => {
                         <TableRow key={index}>
                           <TableCell
                             sx={{
-                              fontWeight: 500,
+                              fontWeight: 600,
                               color: "#171a1f",
                               fontSize: 14,
                             }}
@@ -678,7 +695,7 @@ export const AdminAlertInbox = (): JSX.Element => {
                                 color:
                                   alert.typeColor === "#9e9e9e"
                                     ? "#1e2128"
-                                    : "white",
+                                    : "#EEEFF2",
 
                                 fontWeight: 600,
                                 fontSize: 12,
@@ -751,7 +768,7 @@ export const AdminAlertInbox = (): JSX.Element => {
                               sx={{
                                 textTransform: "none",
 
-                                fontWeight: 500,
+                                fontWeight: 600,
                                 color: "#171a1f",
                                 fontSize: 14,
                               }}

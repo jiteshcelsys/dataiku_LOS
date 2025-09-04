@@ -15,6 +15,9 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import download from "../assets/download.png";
+import AvatarI from "../assets/avatar.jpg";
+import Applicant from "../assets/newImage.webp";
 
 export default function AdminDashboard() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -90,7 +93,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Anya Sharma",
-        avatar: "/rectangle.png",
+        avatar: Applicant,
         bgColor: "#fde5e6",
       },
       loanType: "Mortgage Loan",
@@ -106,7 +109,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Ethan Chen",
-        avatar: "/rectangle-1.png",
+        avatar: Applicant,
         bgColor: "#e6eefc",
       },
       loanType: "Business Loan",
@@ -118,7 +121,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Olivia Davis",
-        avatar: "/rectangle-2.png",
+        avatar: Applicant,
         bgColor: "#e0fbec",
       },
       loanType: "Personal Loan",
@@ -134,7 +137,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Liam Johnson",
-        avatar: "/rectangle-3.png",
+        avatar: Applicant,
         bgColor: "#e5eaf9",
       },
       loanType: "Auto Loan",
@@ -150,7 +153,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Sophia Rodriguez",
-        avatar: "/rectangle-4.png",
+        avatar: Applicant,
         bgColor: "#ecfcd8",
       },
       loanType: "Mortgage Loan",
@@ -182,7 +185,7 @@ export default function AdminDashboard() {
 
   const drawer = (
     <div style={sidebarStyle as React.CSSProperties}>
-      <div style={{ padding: "24px" }}>
+      <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
         <img
           style={{
             width: "100%",
@@ -191,8 +194,18 @@ export default function AdminDashboard() {
             objectFit: "contain",
           }}
           alt="Logo"
-          src="/image.png"
+          src={download}
         />
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: 600,
+            color: "#6B6B6B",
+            fontSize: 18,
+          }}
+        >
+          CELESTIAL SYSTEMS
+        </Typography>
       </div>
 
       <nav style={{ padding: "0 16px", flex: 1 }}>
@@ -405,7 +418,6 @@ export default function AdminDashboard() {
                   border: "1px solid #ccc",
                   borderRadius: "4px",
                   fontSize: "14px",
-                  fontFamily: "Roboto",
                   outline: "none",
                 }}
               />
@@ -420,7 +432,7 @@ export default function AdminDashboard() {
               }}
             >
               <img
-                src="/rectangle-5.png"
+                src={AvatarI}
                 alt="Avatar"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -475,10 +487,9 @@ export default function AdminDashboard() {
                     >
                       <h3
                         style={{
-                          fontFamily: "Roboto",
-                          fontWeight: "500",
+                          fontWeight: "600",
                           color: "#19191f",
-                          fontSize: "14px",
+                          fontSize: "18px",
                           letterSpacing: "-0.35px",
                           lineHeight: "20px",
                           margin: 0,
@@ -490,7 +501,6 @@ export default function AdminDashboard() {
                     </div>
                     <div
                       style={{
-                        fontFamily: "Roboto",
                         fontWeight: "700",
                         color: "#19191f",
                         fontSize: isMobile ? "20px" : "24px",
@@ -502,7 +512,6 @@ export default function AdminDashboard() {
                     </div>
                     <p
                       style={{
-                        fontFamily: "Roboto",
                         fontWeight: "400",
                         color: "#565d6d",
                         fontSize: "12px",
@@ -530,7 +539,6 @@ export default function AdminDashboard() {
             >
               <h2
                 style={{
-                  fontFamily: "Roboto",
                   fontWeight: "600",
                   color: "#171a1f",
                   fontSize: isMobile ? "18px" : "20px",
@@ -554,7 +562,7 @@ export default function AdminDashboard() {
                   <label
                     style={{
                       display: "block",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#323743",
                       fontSize: "12px",
@@ -573,7 +581,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       color: "#565d6d",
                       outline: "none",
                     }}
@@ -584,7 +592,7 @@ export default function AdminDashboard() {
                   <label
                     style={{
                       display: "block",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#171a1f",
                       fontSize: "14px",
@@ -601,7 +609,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       color: "#171a1f",
                       outline: "none",
                     }}
@@ -618,7 +626,7 @@ export default function AdminDashboard() {
                   <label
                     style={{
                       display: "block",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#171a1f",
                       fontSize: "14px",
@@ -635,7 +643,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       color: "#171a1f",
                       outline: "none",
                     }}
@@ -653,7 +661,7 @@ export default function AdminDashboard() {
                   <label
                     style={{
                       display: "block",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#323743",
                       fontSize: "12px",
@@ -672,7 +680,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       color: "#565d6d",
                       outline: "none",
                     }}
@@ -698,7 +706,6 @@ export default function AdminDashboard() {
                     color: "#171a1f",
                     backgroundColor: "white",
                     cursor: "pointer",
-                    fontFamily: "Roboto",
                   }}
                 >
                   Clear Filters
@@ -713,7 +720,6 @@ export default function AdminDashboard() {
                     color: "white",
                     backgroundColor: "#376fc8",
                     cursor: "pointer",
-                    fontFamily: "Roboto",
                   }}
                 >
                   Apply Filters
@@ -744,7 +750,6 @@ export default function AdminDashboard() {
               >
                 <h2
                   style={{
-                    fontFamily: "Roboto",
                     fontWeight: "600",
                     color: "#171a1f",
                     fontSize: isMobile ? "18px" : "20px",
@@ -776,7 +781,6 @@ export default function AdminDashboard() {
                       color: "#171a1f",
                       backgroundColor: "white",
                       cursor: "pointer",
-                      fontFamily: "Roboto",
                     }}
                   >
                     <FileDown size={16} style={{ marginRight: "8px" }} />
@@ -795,7 +799,6 @@ export default function AdminDashboard() {
                       color: "#171a1f",
                       backgroundColor: "white",
                       cursor: "pointer",
-                      fontFamily: "Roboto",
                     }}
                   >
                     <BarChart3 size={16} style={{ marginRight: "8px" }} />
@@ -825,7 +828,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -839,7 +842,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -853,7 +856,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -867,7 +870,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -881,7 +884,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -895,7 +898,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "left",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -909,7 +912,7 @@ export default function AdminDashboard() {
                         style={{
                           padding: "12px 24px",
                           textAlign: "right",
-                          fontFamily: "Roboto",
+
                           fontWeight: "500",
                           color: "#565d6d",
                           fontSize: "14px",
@@ -961,8 +964,7 @@ export default function AdminDashboard() {
                             </div>
                             <span
                               style={{
-                                fontFamily: "Roboto",
-                                fontWeight: "500",
+                                fontWeight: "600",
                                 color: "#171a1f",
                                 fontSize: "14px",
                                 lineHeight: "20px",
@@ -975,7 +977,7 @@ export default function AdminDashboard() {
                         <td
                           style={{
                             padding: "20px 24px",
-                            fontFamily: "Roboto",
+
                             fontWeight: "400",
                             color: "#171a1f",
                             fontSize: "14px",
@@ -987,8 +989,8 @@ export default function AdminDashboard() {
                         <td
                           style={{
                             padding: "20px 24px",
-                            fontFamily: "Roboto",
-                            fontWeight: "500",
+
+                            fontWeight: "600",
                             color: "#171a1f",
                             fontSize: "14px",
                             lineHeight: "20px",
@@ -999,7 +1001,7 @@ export default function AdminDashboard() {
                         <td
                           style={{
                             padding: "20px 24px",
-                            fontFamily: "Roboto",
+
                             fontWeight: "400",
                             color: "#171a1f",
                             fontSize: "14px",
@@ -1017,7 +1019,7 @@ export default function AdminDashboard() {
                                 padding: "4px 10px",
                                 borderRadius: "12px",
                                 fontSize: "12px",
-                                fontFamily: "Roboto",
+
                                 fontWeight: "600",
                                 lineHeight: "20px",
                                 backgroundColor: application.flag.bgColor,
@@ -1031,7 +1033,7 @@ export default function AdminDashboard() {
                         <td
                           style={{
                             padding: "20px 24px",
-                            fontFamily: "Roboto",
+
                             fontWeight: "400",
                             color: "#171a1f",
                             fontSize: "14px",
@@ -1051,8 +1053,8 @@ export default function AdminDashboard() {
                               border: "none",
                               backgroundColor: "transparent",
                               fontSize: "14px",
-                              fontFamily: "Roboto",
-                              fontWeight: "500",
+
+                              fontWeight: "600",
                               color: "#171a1f",
                               cursor: "pointer",
                             }}
@@ -1082,7 +1084,6 @@ export default function AdminDashboard() {
               >
                 <p
                   style={{
-                    fontFamily: "Roboto",
                     fontWeight: "400",
                     color: "#565d6d",
                     fontSize: "14px",
@@ -1101,7 +1102,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#9ca3af",
                       backgroundColor: "#f9fafb",
@@ -1116,7 +1117,7 @@ export default function AdminDashboard() {
                       border: "1px solid #ccc",
                       borderRadius: "4px",
                       fontSize: "14px",
-                      fontFamily: "Roboto",
+
                       fontWeight: "500",
                       color: "#171a1f",
                       backgroundColor: "white",
