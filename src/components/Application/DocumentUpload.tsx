@@ -24,13 +24,14 @@ import {
   Card,
   Divider,
   TextField,
+  LinearProgress,
+  useTheme,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useNavigate } from "react-router-dom";
-import { useApplication } from "../../context/ApplicationContext";
 import { Upload, FileText, Trash2 } from "lucide-react";
-import type { UploadedDocument } from "../../types";
-import { labelStyle } from "../../Helper/useDrawerToggle";
+import type { UploadedDocument } from "../types";
+import { useApplication } from "../../context/ApplicationContext";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   "Personal Details",
@@ -82,6 +83,7 @@ const requiredDocuments = [
     description: "Evidence of funds for Closing costs",
   },
 ];
+
 const Loan_purposes = [
   "Personal Loan",
   "Auto Loan",
@@ -89,33 +91,14 @@ const Loan_purposes = [
   "Mortgage",
   "Line of Credit",
 ];
-const PayStubs = [
-  {
-    type: "paystubs",
-    label: "Pay Stubs",
-    description: "Last three months of pay stubs",
-  },
-];
 
 export const DocumentUpload: React.FC = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const { currentApplication, updateApplication } = useApplication();
-  const [selectedLoanType, setSelectedLoanType] = useState("");
+  const [selectedLoanType, setSelectedLoanType] = useState("Mortgage");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedDocument[]>([]);
 
-  // const handleFileUpload = (documentType: string) => {
-  //   // Mock file upload
-  //   const mockFile: UploadedDocument = {
-  //     id: Date.now().toString(),
-  //     name: `${documentType}_document.pdf`,
-  //     type: documentType,
-  //     size: Math.floor(Math.random() * 1000000),
-  //     uploadDate: new Date(),
-  //     required: true,
-  //   };
-
-  //   setUploadedFiles((prev) => [...prev, mockFile]);
-  // };
   const handleFileUpload = (
     documentType: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -157,8 +140,8 @@ export const DocumentUpload: React.FC = () => {
     navigate("/application/tracker");
   };
 
-  const handleBack = () => {
-    navigate("/application/employment");
+  const handleSaveDraft = () => {
+    console.log("Save draft", uploadedFiles);
   };
 
   const getUploadStatus = () => {
@@ -173,86 +156,53 @@ export const DocumentUpload: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      {/* <Paper elevation={2} sx={{ p: 4 }}> */}
-      {/* <Stepper activeStep={3} sx={{ mb: 4 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper> */}
-
-      {/* <Typography
-        variant="h4"
-        gutterBottom
-        // sx={{ fontWeight: 600 }}
-        sx={{
-          fontWeight: 600,
-          top: 50,
-          position: "sticky", // ✅ keeps it stuck
-          // top: 0, // ✅ distance from top
-          backgroundColor: "white", // ✅ avoid overlap
-          zIndex: 10, // ✅ stay above form elements
-          py: 2, // add padding if needed
-        }}
-      >
-        Document Upload
-      </Typography> */}
-      {/* <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Please upload the required documents for your loan application.
-      </Typography> */}
+    <Container
+      maxWidth="xl"
+      sx={{ py: 4, bgcolor: "background.default", minHeight: "100vh" }}
+    >
       <Grid container spacing={4} sx={{ justifyContent: "space-around" }}>
         <Grid item xs={12} md={6}>
+          {/* Loan Type Selection Card */}
           <Card
             sx={{
               mb: 3,
               width: {
-                xs: "100%", // full width on extra-small screens (mobile)
-                sm: "600px", // up to 600px on small screens (tablets)
-                md: "800px", // up to 800px on medium+ (desktop)
+                xs: "100%",
+                sm: "600px",
+                md: "800px",
               },
-              mx: "auto", // center horizontally
+              mx: "auto",
             }}
           >
             <CardContent>
-              {/* <Typography variant="h6" gutterBottom>
-                Loan Type
-              </Typography>
-              <FormControl fullWidth>
-                {selectedLoanType ? null : (
-                  <InputLabel>
-                    Select your loan type to view specific document requirements
-                  </InputLabel>
-                )}
-                <Select
-                  value={selectedLoanType}
-                  onChange={(e) => setSelectedLoanType(e.target.value)}
-                  label="Select your loan type to view specific document requirements"
-                >
-                  <MenuItem value="Mortgage Loan">Mortgage Loan</MenuItem>
-                  <MenuItem value="Personal Loan">Personal Loan</MenuItem>
-                  <MenuItem value="Auto Loan">Auto Loan</MenuItem>
-                  <MenuItem value="Business Loan">Business Loan</MenuItem>
-                </Select>
-              </FormControl> */}
-              {/* <Typography variant="body1" sx={labelStyle}>
-                Loan Type
-              </Typography> */}
-              <Typography variant="h6" gutterBottom>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{
+                  fontWeight: 600,
+                  color: "primary.main",
+                  mb: 2,
+                }}
+              >
                 Loan Type
               </Typography>
               <TextField
                 fullWidth
                 select
-                label={selectedLoanType ? null : "Mortage Loan"}
+                label="Select Loan Type"
                 value={selectedLoanType}
                 onChange={(e) => setSelectedLoanType(e.target.value)}
-                defaultValue="Student"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "&:hover fieldset": {
+                      borderColor: "secondary.main",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "primary.main",
+                    },
+                  },
+                }}
               >
-                <MenuItem value="" disabled>
-                  Mortage Loan
-                </MenuItem>
                 {Loan_purposes.map((purpose) => (
                   <MenuItem key={purpose} value={purpose}>
                     {purpose}
@@ -261,16 +211,25 @@ export const DocumentUpload: React.FC = () => {
               </TextField>
             </CardContent>
           </Card>
+
+          {/* Required Documents Card */}
           <Card>
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{
+                  fontWeight: 600,
+                  color: "primary.main",
+                }}
+              >
                 Required Documents
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                 A checklist of documents based on your selected loan type:
               </Typography>
 
-              <List>
+              <List sx={{ p: 0 }}>
                 {requiredDocuments.map((doc, index) => {
                   const isUploaded = uploadedFiles.find(
                     (f) => f.type === doc.type
@@ -280,22 +239,37 @@ export const DocumentUpload: React.FC = () => {
                     <React.Fragment key={doc.type}>
                       <ListItem
                         sx={{
-                          py: 2,
+                          py: 3,
+                          px: 2,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "space-between",
+                          borderRadius: 1,
+                          "&:hover": {
+                            bgcolor: "rgba(0,0,0,0.02)",
+                          },
                         }}
                       >
                         {/* Left side */}
-                        <Box>
+                        <Box sx={{ flex: 1, mr: 2 }}>
                           <Typography
                             variant="subtitle1"
-                            sx={{ fontWeight: 600 }}
+                            sx={{
+                              fontWeight: 600,
+                              color: "text.primary",
+                              mb: 0.5,
+                            }}
                           >
-                            <span style={{ color: "blue" }}>* </span>
+                            <span style={{ color: theme.palette.error.main }}>
+                              *{" "}
+                            </span>
                             {doc.label}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ lineHeight: 1.4 }}
+                          >
                             {doc.description}
                           </Typography>
                         </Box>
@@ -306,47 +280,104 @@ export const DocumentUpload: React.FC = () => {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "flex-end",
+                            gap: 1,
                           }}
                         >
                           <Chip
                             label={isUploaded ? "Uploaded" : "Pending Upload"}
                             color={isUploaded ? "success" : "default"}
                             size="small"
-                            sx={{ mb: 1 }}
+                            sx={{
+                              fontWeight: 500,
+                              ...(isUploaded && {
+                                bgcolor: "success.main",
+                                color: "white",
+                              }),
+                            }}
                           />
+
                           <Box
                             sx={{
                               display: "flex",
                               alignItems: "center",
                               color: "text.secondary",
-                              mb: 1,
                             }}
                           >
                             <InfoOutlinedIcon
                               fontSize="small"
-                              sx={{ mr: 0.5 }}
+                              sx={{ mr: 0.5, fontSize: "16px" }}
                             />
-                            <Typography variant="body2">Required</Typography>
+                            <Typography
+                              variant="caption"
+                              sx={{ fontSize: "12px" }}
+                            >
+                              Required
+                            </Typography>
                           </Box>
+
                           <Button
                             variant="outlined"
                             size="small"
                             component="label"
                             startIcon={<Upload size={16} />}
+                            sx={{
+                              borderColor: "secondary.main",
+                              color: "secondary.main",
+                              "&:hover": {
+                                borderColor: "secondary.main",
+                                bgcolor: "rgba(23, 198, 163, 0.08)",
+                              },
+                              fontSize: "12px",
+                              px: 2,
+                            }}
                           >
                             Upload Document
                             <input
                               type="file"
                               hidden
+                              accept=".pdf,.jpg,.jpeg,.png"
                               onChange={(e) => handleFileUpload(doc.type, e)}
                             />
                           </Button>
+
+                          {/* Show uploaded file info */}
+                          {isUploaded && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                                mt: 1,
+                              }}
+                            >
+                              <FileText
+                                size={14}
+                                color={theme.palette.success.main}
+                              />
+                              <Typography
+                                variant="caption"
+                                color="success.main"
+                              >
+                                {isUploaded.name}
+                              </Typography>
+                              <IconButton
+                                size="small"
+                                onClick={() => handleFileRemove(isUploaded.id)}
+                                sx={{ ml: 0.5, p: 0.5 }}
+                              >
+                                <Trash2
+                                  size={12}
+                                  color={theme.palette.error.main}
+                                />
+                              </IconButton>
+                            </Box>
+                          )}
                         </Box>
                       </ListItem>
 
                       {/* Divider after each ListItem except the last */}
                       {index < requiredDocuments.length - 1 && (
-                        <Divider component="li" />
+                        <Divider component="li" sx={{ bgcolor: "divider" }} />
                       )}
                     </React.Fragment>
                   );
@@ -357,113 +388,170 @@ export const DocumentUpload: React.FC = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
+          {/* Upload Status Card */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Upload Status
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{
+                  fontWeight: 600,
+                  color: "primary.main",
+                }}
+              >
+                Upload Progress
+              </Typography>
+
+              <Box sx={{ mb: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    mb: 1,
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary">
+                    Documents uploaded
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 600,
+                      color:
+                        getUploadStatus() === 100
+                          ? "success.main"
+                          : "text.primary",
+                    }}
+                  >
+                    {uploadedFiles.length}/{requiredDocuments.length}
+                  </Typography>
+                </Box>
+
+                <LinearProgress
+                  variant="determinate"
+                  value={getUploadStatus()}
+                  sx={{
+                    height: 8,
+                    borderRadius: 4,
+                    bgcolor: "divider",
+                    "& .MuiLinearProgress-bar": {
+                      bgcolor: "success.main",
+                      borderRadius: 4,
+                    },
+                  }}
+                />
+              </Box>
+
+              <Typography variant="body2" color="text.secondary">
+                {getUploadStatus()}% complete
+              </Typography>
+            </CardContent>
+          </Card>
+
+          {/* Drag & Drop Area */}
+          <Card sx={{ mb: 3 }}>
+            <CardContent>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  mb: 1,
+                  color: "primary.main",
+                }}
+              >
+                Quick Upload
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                Drag & drop files here or click to browse. Max file size: 10MB.
               </Typography>
 
               <Box
-                sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}
+                sx={{
+                  border: `2px dashed ${theme.palette.divider}`,
+                  borderRadius: 2,
+                  p: 4,
+                  textAlign: "center",
+                  bgcolor: "rgba(0,0,0,0.01)",
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    borderColor: "secondary.main",
+                    bgcolor: "rgba(23, 198, 163, 0.02)",
+                  },
+                }}
               >
-                <Box
+                <Upload
+                  size={48}
+                  style={{
+                    color: theme.palette.text.secondary,
+                    marginBottom: "16px",
+                  }}
+                />
+                <Typography
+                  variant="h6"
+                  gutterBottom
                   sx={{
-                    width: "100%",
-                    height: 8,
-                    bgcolor: "#e0e0e0",
-                    borderRadius: 1,
-                    overflow: "hidden",
+                    fontWeight: 600,
+                    color: "text.primary",
                   }}
                 >
-                  <Box
-                    sx={{
-                      width: `${getUploadStatus()}%`,
-                      height: "100%",
-                      bgcolor: "#4caf50",
-                      transition: "width 0.3s ease",
-                    }}
-                  />
-                </Box>
-
-                <Typography variant="body2" sx={{ minWidth: "fit-content" }}>
-                  {getUploadStatus()}%
+                  Drag & Drop Your Files Here
                 </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2 }}
+                >
+                  Supported formats: PDF, JPEG, PNG
+                </Typography>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    borderColor: "secondary.main",
+                    color: "secondary.main",
+                    "&:hover": {
+                      borderColor: "secondary.main",
+                      bgcolor: "rgba(23, 198, 163, 0.08)",
+                    },
+                  }}
+                >
+                  Browse Files
+                </Button>
               </Box>
-
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                {uploadedFiles.length}/3 documents uploaded and under review
-              </Typography>
             </CardContent>
           </Card>
 
-          <Card sx={{ mb: 3, p: 2, bgcolor: "#f9f9f9" }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                Uploaded Files
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Drag & drop files here or click to browse. Max file size: 10MB.
-              </Typography>
-            </CardContent>
-
-            <Box
-              sx={{
-                border: "2px dashed #ccc",
-                borderRadius: 2,
-                p: 4,
-                textAlign: "center",
-                mb: 3,
-              }}
-            >
-              <Upload size={48} className="text-gray-400 mb-4" />
-              <Typography variant="h6" gutterBottom>
-                Drag & Drop Your Files Here
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Supported formats: PDF, JPEG, PNG
-              </Typography>
-              <Button variant="outlined" size="small">
-                Browse Files
-              </Button>
-            </Box>
-          </Card>
-
-          {/* {uploadedFiles.length > 0 && (
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Uploaded Files
-              </Typography>
-              <List>
-                {uploadedFiles.map((file) => (
-                  <ListItem key={file.id}>
-                    <FileText size={20} className="mr-2" />
-                    <ListItemText
-                      primary={file.name}
-                      secondary={`${(file.size / 1024).toFixed(1)} KB • ${file.uploadDate.toLocaleDateString()}`}
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        onClick={() => handleFileRemove(file.id)}
-                        size="small"
-                      >
-                        <Trash2 size={16} />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          )} */}
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}>
+          {/* Action Buttons */}
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box sx={{ display: "flex", gap: 2 }}>
-              <Button variant="outlined" size="large" sx={{ px: 4 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                sx={{
+                  px: 4,
+                  borderColor: "primary.main",
+                  color: "primary.main",
+                  "&:hover": {
+                    borderColor: "primary.main",
+                    bgcolor: "rgba(74, 92, 196, 0.08)",
+                  },
+                }}
+                onClick={handleSaveDraft}
+              >
                 Save Draft
               </Button>
               <Button
                 variant="contained"
                 onClick={handleNext}
                 size="large"
-                sx={{ px: 4 }}
+                sx={{
+                  px: 4,
+                  bgcolor: "success.main",
+                  "&:hover": {
+                    bgcolor: "success.dark",
+                  },
+                }}
+                disabled={uploadedFiles.length === 0}
               >
                 Submit for Review
               </Button>
@@ -471,8 +559,6 @@ export const DocumentUpload: React.FC = () => {
           </Box>
         </Grid>
       </Grid>
-
-      {/* </Paper> */}
     </Container>
   );
 };

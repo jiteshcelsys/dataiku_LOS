@@ -8,7 +8,7 @@ import {
   CardContent,
   Button,
   Chip,
-  Grid,
+  // Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -35,6 +35,7 @@ import {
 } from "@mui/icons-material";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 const theme = createTheme({
   palette: {
@@ -58,11 +59,11 @@ const theme = createTheme({
 
 // import React from "react";
 // import {
-//   Box,
-//   Button,
-//   Typography,
-//   useMediaQuery,
-//   useTheme,
+// Box,
+// Button,
+// Typography,
+// useMediaQuery,
+// useTheme,
 // } from "@mui/material";
 
 const RiskGauge: React.FC = () => {
@@ -219,7 +220,7 @@ const AdminNew: React.FC = () => {
         }}
       >
         {/* Header */}
-        <AppBar position="static" elevation={0} sx={{ bgcolor: "#5C6BC0" }}>
+        <AppBar position="fixed" elevation={0} sx={{ bgcolor: "#5C6BC0" }}>
           <Toolbar>
             <Button
               color="inherit"
@@ -246,15 +247,23 @@ const AdminNew: React.FC = () => {
           </Toolbar>
         </AppBar>
 
-        <Container maxWidth={false} sx={{ mt: 3 }}>
-          <Grid container spacing={2} wrap="nowrap">
+        <Container
+          maxWidth={false}
+          sx={{ mt: 3 }}
+          sx={{
+            height: "calc(100vh - 64px )",
+            position: "relative",
+            top: "64px",
+            paddingBlock: "20px",
+          }}
+        >
+          <Grid container spacing={2}>
             {/* Left Sidebar */}
             <Grid
-              item
-              xs={12}
-              md="auto"
+              // item
+              size={{ xs: 12, sm: 12, md: 3, lg: 2 }}
               sx={{
-                flex: "0 0 250px",
+                // flex: "0 0 250px",
                 background: "#ECECEC",
                 // background: "#aa1616ff",
                 padding: "12px",
@@ -365,10 +374,8 @@ const AdminNew: React.FC = () => {
 
             {/* Main Content */}
             <Grid
-              item
-              xs={12}
-              md
-              sx={{ flex: "1 1 auto", minWidth: 0 }}
+              size={{ xs: 12, sm: 12, md: 9, lg: 6 }}
+              // sx={{ flex: "1 1 auto", minWidth: 0 }}
               order={{ xs: 3, md: 2 }}
             >
               <Card sx={{ mb: 2, boxShadow: 1 }}>
@@ -614,10 +621,8 @@ const AdminNew: React.FC = () => {
 
             {/* Right Sidebar */}
             <Grid
-              item
-              xs={12}
-              md="auto"
-              sx={{ flex: "0 0 300px", background: "#ECECEC" }}
+              size={{ xs: 12, sm: 12, md: 12, lg: 4 }}
+              sx={{ background: "#ECECEC" }}
               padding="12px"
               order={{ xs: 2, md: 3 }}
             >
