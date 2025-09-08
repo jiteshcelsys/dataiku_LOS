@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, type Shadows } from "@mui/material/styles";
 
 const customTheme = {
   colors: {
@@ -48,7 +48,7 @@ const customTheme = {
 };
 
 // ✅ Build a 25-item shadows array (MUI requirement)
-const muiShadows = Array(25).fill("none") as string[];
+const muiShadows: Shadows = Array(25).fill("none") as Shadows;
 muiShadows[1] = customTheme.shadows.card;
 muiShadows[2] = customTheme.shadows.hover;
 

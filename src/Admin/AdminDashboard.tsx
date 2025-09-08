@@ -1,4 +1,4 @@
-import { Avatar, Typography, Box, MenuItem } from "@mui/material";
+import { Avatar, Typography, Box } from "@mui/material";
 import {
   BarChart3,
   CheckCircle,
@@ -8,7 +8,6 @@ import {
   FileDown,
   Home,
   Search,
-  Settings,
   Users,
   X,
   Menu,
@@ -168,7 +167,6 @@ export default function AdminDashboard() {
       submissionDate: "2024-07-24",
     },
   ];
-  const [loanType, setLoanType] = useState<string>("jitesh");
 
   const handleNavigationClick = (item: string): void => {
     console.log(item);

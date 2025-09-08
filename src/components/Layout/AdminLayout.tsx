@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Drawer, Toolbar, useTheme, useMediaQuery } from "@mui/material";
-import { Header } from "./Header";
+import { Box, Drawer, useTheme, useMediaQuery } from "@mui/material";
 import { AdminSidebar } from "./AdminSidebar";
 import { useDrawerToggle } from "../../Helper/useDrawerToggle";
 

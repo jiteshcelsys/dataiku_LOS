@@ -8,8 +8,6 @@ import {
   Hourglass,
   Plus,
   Search,
-  Settings,
-  UserCheck,
   Users,
 } from "lucide-react";
 import { type JSX } from "react";

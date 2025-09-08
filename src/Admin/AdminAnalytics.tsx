@@ -2,7 +2,6 @@ import {
   BadgeAlert,
   BadgeCheck,
   BarChart3,
-  Briefcase,
   Calendar,
   ChevronDown,
   CircleAlert,
@@ -13,13 +12,10 @@ import {
   History,
   Home,
   Info,
-  LayoutDashboard,
   Mail,
   MapPin,
   MessageSquareText,
   Phone,
-  Settings,
-  SquareGanttChart,
   Users,
 } from "lucide-react";
 import { type JSX } from "react";
@@ -275,7 +271,7 @@ export const AdminAnalytics = (): JSX.Element => {
         <Box sx={{ flexGrow: 1, px: 0.5, py: 2 }}>
           <Box sx={{ mb: 2 }}>
             <List sx={{ py: 0 }}>
-              {navigationItems.map((item, index) => {
+              {navigationItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
                   <ListItem key={item.label} disablePadding>

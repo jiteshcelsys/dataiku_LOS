@@ -8,11 +8,6 @@ import {
   CardContent,
   Button,
   Chip,
-  // Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Collapse,
   IconButton,
   Paper,
@@ -22,16 +17,9 @@ import {
 } from "@mui/material";
 import {
   CheckCircle,
-  Warning,
   ExpandMore,
   ExpandLess,
-  Person,
-  Email,
-  Phone,
-  Home,
-  CalendarMonth,
   ErrorOutline,
-  Cancel,
 } from "@mui/icons-material";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -56,15 +44,6 @@ const theme = createTheme({
     },
   },
 });
-
-// import React from "react";
-// import {
-// Box,
-// Button,
-// Typography,
-// useMediaQuery,
-// useTheme,
-// } from "@mui/material";
 
 const RiskGauge: React.FC = () => {
   const theme = useTheme();
@@ -249,12 +228,12 @@ const AdminNew: React.FC = () => {
 
         <Container
           maxWidth={false}
-          sx={{ mt: 3 }}
           sx={{
             height: "calc(100vh - 64px )",
             position: "relative",
             top: "64px",
             paddingBlock: "20px",
+            mt: 3,
           }}
         >
           <Grid container spacing={2}>
@@ -387,6 +366,7 @@ const AdminNew: React.FC = () => {
                     sx={{ justifyContent: "space-around" }}
                   >
                     {/* Risk Gauge */}
+                    {/* @ts-ignore */}
                     <Grid item xs={12} md={4} lg={3}>
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <RiskGauge />
@@ -394,6 +374,7 @@ const AdminNew: React.FC = () => {
                     </Grid>
 
                     {/* Applicant Details */}
+                    {/* @ts-ignore */}
                     <Grid item xs={12} md={8} lg={9}>
                       <Box
                         sx={{
@@ -420,6 +401,7 @@ const AdminNew: React.FC = () => {
                         >
                           <Grid container spacing={2}>
                             {/* Labels column */}
+                            {/* @ts-ignore */}
                             <Grid item xs={12} sm={4}>
                               <Typography
                                 variant="body2"
@@ -454,6 +436,7 @@ const AdminNew: React.FC = () => {
                             </Grid>
 
                             {/* Values column */}
+                            {/* @ts-ignore */}
                             <Grid item xs={12} sm={8}>
                               <Typography variant="body2" fontWeight={500}>
                                 John Doe

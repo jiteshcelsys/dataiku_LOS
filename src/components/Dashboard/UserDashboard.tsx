@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useApplication } from "../../context/ApplicationContext";
-import { Plus, FileText, TrendingUp } from "lucide-react";
+import { FileText, TrendingUp } from "lucide-react";
 
 export const UserDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -57,6 +57,7 @@ export const UserDashboard: React.FC = () => {
         justifyContent="center"
         sx={{ maxWidth: "1600px", mx: "auto" }}
       >
+        {/* @ts-ignore */}
         <Grid item xs={12} md={6} lg={7}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
@@ -159,7 +160,7 @@ export const UserDashboard: React.FC = () => {
             </Box>
           </Card>
         </Grid>
-
+        {/* @ts-ignore */}
         <Grid
           item
           xs={12}

@@ -5,20 +5,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./context/AuthContext";
 import { ApplicationProvider } from "./context/ApplicationContext";
 import { Layout } from "./components/Layout/Layout";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
-import { HomePage } from "./components/Home/HomePage";
 import { LoginForm } from "./components/Auth/LoginForm";
 import { RegisterForm } from "./components/Auth/RegisterForm";
 import { LoanSelection } from "./components/LoanSelection/LoanSelection";
 import { PersonalDetailsForm } from "./components/Application/PersonalDetailsForm";
-import { ContactInfoForm } from "./components/Application/ContactInfoForm";
-import { EmploymentForm } from "./components/Application/EmploymentForm";
 import { DocumentUpload } from "./components/Application/DocumentUpload";
 import { ApplicationReview } from "./components/Application/ApplicationReview";
 import { ApplicationTracker } from "./components/Application/ApplicationTracker";
@@ -152,15 +149,10 @@ const ApplicationRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="personal-details" element={<PersonalDetailsForm />} />
-      <Route path="contact-info" element={<ContactInfoForm />} />
-      <Route path="employment" element={<EmploymentForm />} />
       <Route path="documents" element={<DocumentUpload />} />
       <Route path="review" element={<ApplicationReview />} />
       <Route path="tracker" element={<ApplicationTracker />} />
       <Route path="approved" element={<ApplicationApproved />} />
-
-      {/* <Route path="*" element={<Navigate to="personal-details" replace />} /> */}
-
       <Route
         path="*"
         element={<Navigate to="/user/personal-details" replace />}

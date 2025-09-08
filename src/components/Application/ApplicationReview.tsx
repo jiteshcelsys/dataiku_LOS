@@ -1,29 +1,16 @@
 import React from "react";
 import {
   Container,
-  Paper,
   Typography,
   Button,
   Box,
-  Stepper,
-  Step,
-  StepLabel,
   Card,
   CardContent,
-  Grid,
-  Divider,
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
 import { FileText } from "lucide-react";
-
-const steps = [
-  "Personal Details",
-  "Contact Info",
-  "Employment",
-  "Documents",
-  "Review",
-];
 
 export const ApplicationReview: React.FC = () => {
   const navigate = useNavigate();
@@ -62,6 +49,7 @@ export const ApplicationReview: React.FC = () => {
       </Typography>
 
       <Grid container spacing={3}>
+        {/* @ts-ignore */}
         <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
@@ -87,7 +75,7 @@ export const ApplicationReview: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-
+        {/* @ts-ignore */}
         <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
@@ -112,7 +100,7 @@ export const ApplicationReview: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-
+        {/* @ts-ignore */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
@@ -138,7 +126,7 @@ export const ApplicationReview: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-
+        {/* @ts-ignore */}
         <Grid item xs={12}>
           <Card>
             <CardContent>

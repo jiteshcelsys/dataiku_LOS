@@ -15,14 +15,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../../context/ApplicationContext";
-import {
-  Car,
-  CheckCircle,
-  CheckIcon,
-  Circle,
-  Clock,
-  FileText,
-} from "lucide-react";
+import { CheckIcon, Circle, Clock } from "lucide-react";
 
 const applicationSteps = [
   { label: "Applied", description: "Application submitted and received" },
@@ -40,7 +33,7 @@ const applicationSteps = [
 
 export const ApplicationTracker: React.FC = () => {
   const navigate = useNavigate();
-  const { currentApplication, offers, updateApplication } = useApplication();
+  const { currentApplication, updateApplication } = useApplication();
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
@@ -72,10 +65,6 @@ export const ApplicationTracker: React.FC = () => {
     navigate("/application/approved");
     return null;
   }
-
-  const currentOffer = offers.find(
-    (offer) => offer.applicationId === currentApplication.id
-  );
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -111,7 +100,7 @@ export const ApplicationTracker: React.FC = () => {
             </Typography>
 
             <Stepper activeStep={currentStep} orientation="vertical">
-              {applicationSteps.map((step, index) => (
+              {applicationSteps.map((step) => (
                 <Step key={step.label}>
                   <StepLabel
                     StepIconComponent={({ active, completed }) => (

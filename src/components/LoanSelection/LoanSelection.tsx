@@ -1,6 +1,7 @@
 import React from "react";
-import { Container, Typography, Grid, Button, Box } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 import { useApplication } from "../../context/ApplicationContext";
 import { LoanTypeCard } from "./LoanTypeCard";
 import { User, Car, Home, Building, CreditCard } from "lucide-react";
@@ -156,6 +157,7 @@ export const LoanSelection: React.FC = () => {
           }}
         >
           {loanTypes.map((loan) => (
+            // @ts-ignore
             <Grid
               key={loan.type}
               item

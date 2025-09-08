@@ -9,15 +9,11 @@ import {
   Menu,
   MenuItem,
   IconButton,
-  TextField,
-  InputAdornment,
 } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { Building2, User, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-// import Celestial_Systems from "src\assets\Celestial_Systems.jpg";
 
 import download from "../../assets/download.png";
 
