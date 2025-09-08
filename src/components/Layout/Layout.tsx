@@ -10,7 +10,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box sx={{ minHeight: "100vh" }}>
-      {/* <Header /> */}
+      <Header />
       <Box component="main">{children}</Box>
     </Box>
   );

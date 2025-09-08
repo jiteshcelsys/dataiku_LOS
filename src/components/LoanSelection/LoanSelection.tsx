@@ -13,6 +13,7 @@ const loanTypes = [
     description:
       "Access funds for personal expenses, debt consolidation, or unexpected costs.",
     icon: User,
+    color: "#4A5CC4", // use theme.palette.primary.main
   },
   {
     type: "auto" as const,
@@ -20,6 +21,7 @@ const loanTypes = [
     description:
       "Finance your new or used vehicle with flexible repayment options.",
     icon: Car,
+    color: "#17C6A3", // theme.palette.secondary.main
   },
   {
     type: "mortgage" as const,
@@ -27,6 +29,7 @@ const loanTypes = [
     description:
       "Achieve homeownership with a range of customizable mortgage solutions.",
     icon: Home,
+    color: "#F7941D", // theme.palette.warning.main
   },
   {
     type: "business" as const,
@@ -34,6 +37,7 @@ const loanTypes = [
     description:
       "Grow your business, manage cash flow, or invest in new opportunities.",
     icon: Building,
+    color: "#4CAF50", // theme.palette.success.main
   },
   {
     type: "credit" as const,
@@ -41,8 +45,47 @@ const loanTypes = [
     description:
       "Flexible access to funds up to a certain limit, only pay for what you use.",
     icon: CreditCard,
+    color: "#F44336", // theme.palette.error.main
   },
 ];
+
+// const loanTypes = [
+//   {
+//     type: "personal" as const,
+//     title: "Personal Loan ",
+//     description:
+//       "Access funds for personal expenses, debt consolidation, or unexpected costs.",
+//     icon: User,
+//   },
+//   {
+//     type: "auto" as const,
+//     title: "Auto Loan",
+//     description:
+//       "Finance your new or used vehicle with flexible repayment options.",
+//     icon: Car,
+//   },
+//   {
+//     type: "mortgage" as const,
+//     title: "Mortgage",
+//     description:
+//       "Achieve homeownership with a range of customizable mortgage solutions.",
+//     icon: Home,
+//   },
+//   {
+//     type: "business" as const,
+//     title: "Business Loan",
+//     description:
+//       "Grow your business, manage cash flow, or invest in new opportunities.",
+//     icon: Building,
+//   },
+//   {
+//     type: "credit" as const,
+//     title: "Line of Credit",
+//     description:
+//       "Flexible access to funds up to a certain limit, only pay for what you use.",
+//     icon: CreditCard,
+//   },
+// ];
 
 export const LoanSelection: React.FC = () => {
   const navigate = useNavigate();
@@ -56,7 +99,7 @@ export const LoanSelection: React.FC = () => {
   return (
     <Box
       sx={{
-        maxHeight: "calc(100vh - 75px)",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -128,6 +171,7 @@ export const LoanSelection: React.FC = () => {
                 title={loan.title}
                 description={loan.description}
                 icon={loan.icon}
+                color={loan.color}
                 onClick={() => handleLoanTypeSelect(loan.type)}
               />
             </Grid>
