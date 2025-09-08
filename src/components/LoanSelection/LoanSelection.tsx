@@ -108,7 +108,7 @@ export const LoanSelection: React.FC = () => {
           justifyContent="center"
           sx={{
             mb: { xs: 3, sm: 4 },
-
+            marginLeft: "100px",
             justifyContent: "flex-start",
           }}
         >
@@ -133,23 +133,6 @@ export const LoanSelection: React.FC = () => {
             </Grid>
           ))}
         </Grid>
-
-        {/* Next Button */}
-        {/* <Box sx={{ textAlign: "center", mt: { xs: 2, sm: 4 } }}>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              px: { xs: 3, sm: 4 },
-              py: { xs: 1, sm: 1.5 },
-              fontSize: { xs: "0.9rem", sm: "1rem" },
-              bgcolor: "#1976d2",
-              "&:hover": { bgcolor: "#1565c0" },
-            }}
-          >
-            Next Step →
-          </Button>
-        </Box> */}
       </Container>
     </Box>
   );

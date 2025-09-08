@@ -26,7 +26,7 @@ export const LoginForm: React.FC = () => {
       if (email === "admin@celestial.com") {
         navigate("/admin/dashboard");
       } else {
-        navigate("/user/dashboard");
+        navigate("/loan-selection");
       }
     } else {
       setError(

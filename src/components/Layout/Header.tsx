@@ -116,15 +116,15 @@ export const Header: React.FC<HeaderProps> = ({
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
-                  navigate("/dashboard");
+                  // navigate("/dashboard");
                   handleMenuClose();
                 }}
               >
                 <User size={16} className="mr-2" />
                 Dashboard
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem onClick={handleLogout}>
                 <LogOut size={16} className="mr-2" />
                 Logout

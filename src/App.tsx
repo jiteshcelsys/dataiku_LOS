@@ -27,56 +27,9 @@ import { UserDashboard } from "./components/Dashboard/UserDashboard";
 import { AdminAlertInbox } from "./Admin/AdminAlertInbox";
 import { AdminAnalytics } from "./Admin/AdminAnalytics";
 import AdminDashboard from "./Admin/AdminDashboard";
+import AdminNew from "./Admin/AdminNew";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#1976d2",
-    },
-    secondary: {
-      main: "#0097a7",
-    },
-    background: {
-      // default: "#f5f5f5",
-      default: "#FFFFFF",
-    },
-  },
-  typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
-    h3: { fontWeight: 600 },
-    h4: { fontWeight: 600 },
-    h5: { fontWeight: 600 },
-    h6: { fontWeight: 600 },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-          fontWeight: 600,
-          borderRadius: 8,
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-        },
-      },
-    },
-  },
-});
+import theme from "../src/theme"; // your theme.ts
 
 function App() {
   return (
@@ -185,6 +138,7 @@ const AdminRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="adminNew" element={<AdminNew />} />
       <Route path="alert" element={<AdminAlertInbox />} />
       <Route path="analytics" element={<AdminAnalytics />} />
       <Route path="alerts" element={<AdminAnalytics />} />

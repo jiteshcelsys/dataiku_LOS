@@ -1,27 +1,27 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { CircularProgress, Box } from '@mui/material';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { CircularProgress, Box } from "@mui/material";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requireRole?: 'user' | 'admin';
+  requireRole?: "user" | "admin";
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
-  requireRole 
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requireRole,
 }) => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '100vh' 
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
         }}
       >
         <CircularProgress />

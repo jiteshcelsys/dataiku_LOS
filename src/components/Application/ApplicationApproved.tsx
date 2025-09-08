@@ -184,8 +184,10 @@ export const ApplicationApproved: React.FC = () => {
                 sx={{
                   px: 4,
                   py: 1.5,
-                  bgcolor: "#376FC8",
-                  "&:hover": { bgcolor: "#388e3c" },
+                  bgcolor: (theme) => theme.palette.primary.main,
+                  "&:hover": {
+                    bgcolor: (theme) => theme.palette.primary.dark, // automatically darkens
+                  },
                 }}
               >
                 Sign Contract Now

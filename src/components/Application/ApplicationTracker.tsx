@@ -62,14 +62,14 @@ export const ApplicationTracker: React.FC = () => {
     console.log("Checking application status...", currentApplication);
     updateApplication({ status: "approved" });
     if (currentApplication?.status === "approved") {
-      navigate("/user/approved");
+      navigate("/application/approved");
     } else if (currentApplication?.status === "draft") {
-      navigate("/user/approved");
+      navigate("/application/approved");
     }
   };
 
   if (!currentApplication) {
-    navigate("/loan-selection");
+    navigate("/application/approved");
     return null;
   }
 
