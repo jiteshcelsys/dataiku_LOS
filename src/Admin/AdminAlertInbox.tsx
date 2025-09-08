@@ -11,7 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { type JSX } from "react";
-import download from "../assets/download.png";
+// import download from "../assets/download.png";
 import {
   AppBar,
   Avatar,
@@ -41,7 +41,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import AvatarI from "../assets/avatar.jpg";
+// import AvatarI from "../assets/avatar.jpg";
 
 const navigationItems = [
   {
@@ -203,7 +203,7 @@ export const AdminAlertInbox = (): JSX.Element => {
             }}
             alt="Logo"
             // sr{c="/image.png"
-            src={download}
+            src="/download"
           />
           <Typography
             variant="body2"
@@ -373,7 +373,7 @@ export const AdminAlertInbox = (): JSX.Element => {
                 }}
               >
                 <img
-                  src={AvatarI}
+                  src="./avatar.jpg"
                   alt="Avatar"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />

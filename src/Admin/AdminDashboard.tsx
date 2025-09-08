@@ -199,7 +199,7 @@ export default function AdminDashboard() {
             objectFit: "contain",
           }}
           alt="Logo"
-          src={download}
+          src="/download.png"
         />
         <Typography
           variant="body2"
@@ -442,7 +442,7 @@ export default function AdminDashboard() {
               }}
             >
               <img
-                src={AvatarI}
+                src="/avatar.jpg"
                 onClick={handleLogout}
                 alt="Avatar"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}

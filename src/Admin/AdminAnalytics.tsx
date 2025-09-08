@@ -253,7 +253,7 @@ export const AdminAnalytics = (): JSX.Element => {
             }}
             alt="Logo"
             // sr{c="/image.png"
-            src={download}
+            src="./download"
           />
           <Typography
             variant="body2"
@@ -441,7 +441,7 @@ export const AdminAnalytics = (): JSX.Element => {
               }}
             >
               <img
-                src={AvatarI}
+                src="/avatar.jpg"
                 alt="Avatar"
                 style={{
                   width: "100%",
