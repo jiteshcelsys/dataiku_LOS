@@ -19,7 +19,6 @@ import {
   Users,
 } from "lucide-react";
 import { type JSX } from "react";
-import AvatarI from "../assets/avatar.jpg";
 import {
   AppBar,
   Avatar,
@@ -48,7 +47,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import download from "../assets/download.png";
 
 export const AdminAnalytics = (): JSX.Element => {
   const navigate = useNavigate();

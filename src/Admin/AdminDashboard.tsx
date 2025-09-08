@@ -14,9 +14,6 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import download from "../assets/download.png";
-import AvatarI from "../assets/avatar.jpg";
-import Applicant from "../assets/newImage.webp";
 
 export default function AdminDashboard() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -97,7 +94,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Anya Sharma",
-        avatar: Applicant,
+        avatar: "/newImage.webp",
         bgColor: "#fde5e6",
       },
       loanType: "Mortgage Loan",
@@ -113,7 +110,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Ethan Chen",
-        avatar: Applicant,
+        avatar: "/newImage.webp",
         bgColor: "#e6eefc",
       },
       loanType: "Business Loan",
@@ -125,7 +122,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Olivia Davis",
-        avatar: Applicant,
+        avatar: "/newImage.webp",
         bgColor: "#e0fbec",
       },
       loanType: "Personal Loan",
@@ -141,7 +138,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Liam Johnson",
-        avatar: Applicant,
+        avatar: "/newImage.webp",
         bgColor: "#e5eaf9",
       },
       loanType: "Auto Loan",
@@ -157,7 +154,7 @@ export default function AdminDashboard() {
     {
       applicant: {
         name: "Sophia Rodriguez",
-        avatar: Applicant,
+        avatar: "/newImage.webp",
         bgColor: "#ecfcd8",
       },
       loanType: "Mortgage Loan",
