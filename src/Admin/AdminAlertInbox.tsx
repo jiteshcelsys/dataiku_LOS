@@ -41,7 +41,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import AvatarI from "../assets/Avatar.jpg";
 import AvatarI from "../assets/avatar.jpg";
 
 const navigationItems = [
