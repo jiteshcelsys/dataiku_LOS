@@ -108,7 +108,7 @@ export const LoanSelection: React.FC = () => {
           justifyContent="center"
           sx={{
             mb: { xs: 3, sm: 4 },
-
+            marginLeft: "100px",
             justifyContent: "flex-start",
           }}
         >

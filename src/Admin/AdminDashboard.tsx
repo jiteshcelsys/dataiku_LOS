@@ -1,4 +1,4 @@
-import { Avatar, Typography, Box } from "@mui/material";
+import { Avatar, Typography, Box, MenuItem } from "@mui/material";
 import {
   BarChart3,
   CheckCircle,
@@ -87,6 +87,11 @@ export default function AdminDashboard() {
       icon: BarChart3,
       active: false,
     },
+    {
+      label: "Admin New",
+      icon: BarChart3,
+      active: false,
+    },
   ];
 
   const loanApplications = [
@@ -171,6 +176,8 @@ export default function AdminDashboard() {
       navigate("/admin/alert");
     } else if (item === "Analytics & Reports") {
       navigate("/admin/analytics");
+    } else if (item === "Admin New") {
+      navigate("/admin/adminNew");
     }
   };
 
@@ -312,6 +319,11 @@ export default function AdminDashboard() {
     if (isTablet) return 2;
     return 4;
   };
+  const handleLogout = () => {
+    // logout();
+    navigate("/login");
+    // handleMenuClose();
+  };
 
   return (
     <div
@@ -433,6 +445,7 @@ export default function AdminDashboard() {
             >
               <img
                 src={AvatarI}
+                onClick={handleLogout}
                 alt="Avatar"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

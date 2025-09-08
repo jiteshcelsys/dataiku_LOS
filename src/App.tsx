@@ -27,6 +27,7 @@ import { UserDashboard } from "./components/Dashboard/UserDashboard";
 import { AdminAlertInbox } from "./Admin/AdminAlertInbox";
 import { AdminAnalytics } from "./Admin/AdminAnalytics";
 import AdminDashboard from "./Admin/AdminDashboard";
+import AdminNew from "./Admin/AdminNew";
 
 const theme = createTheme({
   palette: {
@@ -185,6 +186,7 @@ const AdminRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="adminNew" element={<AdminNew />} />
       <Route path="alert" element={<AdminAlertInbox />} />
       <Route path="analytics" element={<AdminAnalytics />} />
       <Route path="alerts" element={<AdminAnalytics />} />
