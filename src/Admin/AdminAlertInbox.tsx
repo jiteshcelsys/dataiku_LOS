@@ -203,7 +203,7 @@ export const AdminAlertInbox = (): JSX.Element => {
             }}
             alt="Logo"
             // sr{c="/image.png"
-            src="/download"
+            src="/download.png"
           />
           <Typography
             variant="body2"
