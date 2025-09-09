@@ -100,16 +100,20 @@ export const LoanSelection: React.FC = () => {
   return (
     <Box
       sx={{
-        height: "105vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        height: "calc(100vh - 64px)",
         bgcolor: "#FFFFFF",
+        overflow: "auto",
       }}
     >
       <Container
         maxWidth="lg"
-        sx={{ py: { xs: 4, sm: 6, paddingTop: "0px", paddingBottom: "0px" } }}
+        sx={{
+          py: { xs: 4, sm: 6, paddingTop: "0px", paddingBottom: "0px" },
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
       >
         {/* Header */}
         <Box
@@ -126,7 +130,6 @@ export const LoanSelection: React.FC = () => {
               fontWeight: 600,
               color: "#333",
               fontSize: { xs: "1.75rem", sm: "2.125rem" },
-              // position: "sticky",
             }}
           >
             Choose Your Loan Type
@@ -150,25 +153,20 @@ export const LoanSelection: React.FC = () => {
         <Grid
           container
           spacing={3}
-          justifyContent="center"
-          sx={{
-            mb: { xs: 3, sm: 4 },
-            marginLeft: "100px",
-            justifyContent: "flex-start",
-          }}
+          // justifyContent="center"
+          alignItems={"stretch"}
+          height={"100%"}
         >
           {loanTypes.map((loan) => (
             // @ts-ignore
             <Grid
               key={loan.type}
-              item
-              xs={12} // ✅ MUI v7 supports gridSize shorthand again
-              sm={6}
-              md={3}
-              // sx={{ maxWidth: 300 }}
-              sx={{
-                maxWidth: 300,
-              }}
+              size={{ xs: 12, sm: 6, md: 4 }}
+              sx={
+                {
+                  // maxWidth: 300,
+                }
+              }
             >
               <LoanTypeCard
                 title={loan.title}

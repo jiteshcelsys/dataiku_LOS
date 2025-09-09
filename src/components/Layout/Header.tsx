@@ -100,7 +100,15 @@ export const Header: React.FC<HeaderProps> = ({
               sx={{ color: "#343b41ff" }}
               onClick={handleProfileMenuOpen}
               startIcon={
-                <Avatar sx={{ width: 24, height: 24, fontSize: "0.75rem" }}>
+                <Avatar
+                  sx={{
+                    width: 24,
+                    height: 24,
+                    fontSize: "0.75rem",
+                    color: "white",
+                    background: "#4A5CC4",
+                  }}
+                >
                   {user.firstName[0]}
                 </Avatar>
               }
