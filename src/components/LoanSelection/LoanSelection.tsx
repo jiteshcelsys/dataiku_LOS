@@ -100,7 +100,7 @@ export const LoanSelection: React.FC = () => {
   return (
     <Box
       sx={{
-        height: "100vh",
+        height: "105vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -126,6 +126,7 @@ export const LoanSelection: React.FC = () => {
               fontWeight: 600,
               color: "#333",
               fontSize: { xs: "1.75rem", sm: "2.125rem" },
+              // position: "sticky",
             }}
           >
             Choose Your Loan Type

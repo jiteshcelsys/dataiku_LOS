@@ -161,14 +161,14 @@ const RiskGauge: React.FC = () => {
       >
         <Button
           variant="contained"
-          color="success"
+          sx={{ background: "rgba(0,172,193,0.8)" }}
           size={isSmall ? "medium" : "large"}
         >
           Approve
         </Button>
         <Button
           variant="contained"
-          color="error"
+          sx={{ background: "rgba(0,172,193,0.8)" }}
           size={isSmall ? "medium" : "large"}
         >
           Decline
@@ -240,7 +240,7 @@ const AdminNew: React.FC = () => {
             {/* Left Sidebar */}
             <Grid
               // item
-              size={{ xs: 12, sm: 12, md: 3, lg: 2 }}
+              size={{ xs: 12, sm: 12, md: 3, lg: 3 }}
               sx={{
                 // flex: "0 0 250px",
                 background: "#ECECEC",
@@ -263,8 +263,8 @@ const AdminNew: React.FC = () => {
                     label="Moderate"
                     sx={{
                       bgcolor: "#FF9800",
-                      color: "white",
-                      fontWeight: 600,
+                      color: "black",
+                      fontWeight: 400,
                       fontSize: "0.875rem",
                     }}
                   />
@@ -291,7 +291,8 @@ const AdminNew: React.FC = () => {
                       sx={{
                         bgcolor: "#4CAF50",
                         textTransform: "none",
-                        fontWeight: 600,
+                        fontWeight: 400,
+                        color: "white",
                         "&:hover": { bgcolor: "#45a049" },
                         width: "fit-content", // 👈 button adapts to text width
                         px: 3,
@@ -307,7 +308,7 @@ const AdminNew: React.FC = () => {
                       sx={{
                         bgcolor: "#FF9800",
                         textTransform: "none",
-                        fontWeight: 600,
+                        fontWeight: 400,
                         "&:hover": { bgcolor: "#f57c00" },
                         width: "fit-content", // 👈 button adapts to text width
                         px: 3,
@@ -322,8 +323,9 @@ const AdminNew: React.FC = () => {
                       sx={{
                         bgcolor: "#F44336",
                         textTransform: "none",
-                        fontWeight: 600,
+                        fontWeight: 400,
                         "&:hover": { bgcolor: "#d32f2f" },
+                        color: "white",
                         width: "fit-content", // 👈 button adapts to text width
                         px: 3,
                         borderRadius: 2,
@@ -341,6 +343,7 @@ const AdminNew: React.FC = () => {
                         "&:hover": { bgcolor: "#d32f2f" },
                         width: "fit-content", // 👈 button adapts to text width
                         px: 3,
+                        color: "white",
                         borderRadius: 2,
                       }}
                     >
@@ -403,58 +406,103 @@ const AdminNew: React.FC = () => {
                             {/* Labels column */}
                             {/* @ts-ignore */}
                             <Grid item xs={12} sm={4}>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Name:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Name:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  John Doe
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Date of Birth:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Date of Birth:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  November 1, 1991
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Mailing Address:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Phone:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Email:
-                              </Typography>
-                            </Grid>
-
-                            {/* Values column */}
-                            {/* @ts-ignore */}
-                            <Grid item xs={12} sm={8}>
-                              <Typography variant="body2" fontWeight={500}>
-                                John Doe
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                November 1, 1991
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                25 Sheppard Avenue, Suite 100
-                                <br />
-                                Toronto, ON M2N 6S6
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                647-555-5555
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                john.doe@email.com
-                              </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Mailing Address:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  25 Sheppard Avenue, Suite 100
+                                  <br />
+                                  Toronto, ON M2N 6S6
+                                </Typography>
+                              </Box>
+                              <Box sx={{ display: "flex", gap: 2 }}>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Phone:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  647-555-5555
+                                </Typography>
+                              </Box>
+                              <Box sx={{ display: "flex", gap: 2 }}>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Email:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  john.doe@email.com
+                                </Typography>
+                              </Box>
                             </Grid>
                           </Grid>
                         </Box>
@@ -467,7 +515,7 @@ const AdminNew: React.FC = () => {
               {/* FSRA History */}
               <Box sx={{ background: "#ECECEC", padding: 2 }}>
                 <Card sx={{ mb: 3, boxShadow: 1 }}>
-                  <CardContent>
+                  <CardContent sx={{ padding: "16px !important" }}>
                     <Box
                       display="flex"
                       alignItems="center"
@@ -515,7 +563,7 @@ const AdminNew: React.FC = () => {
 
                 {/* Other Regulators */}
                 <Card sx={{ boxShadow: 1 }}>
-                  <CardContent>
+                  <CardContent sx={{ padding: "16px !important" }}>
                     <Box
                       display="flex"
                       alignItems="center"
@@ -604,15 +652,15 @@ const AdminNew: React.FC = () => {
 
             {/* Right Sidebar */}
             <Grid
-              size={{ xs: 12, sm: 12, md: 12, lg: 4 }}
+              size={{ xs: 12, sm: 12, md: 12, lg: 3 }}
               sx={{ background: "#ECECEC" }}
               padding="12px"
               order={{ xs: 2, md: 3 }}
             >
               {/* Background Check */}
-              <Card sx={{ mb: 2, boxShadow: 1 }}>
-                <CardContent>
-                  <Box display="flex" alignItems="center" mb={1}>
+              <Card sx={{ mb: 1, boxShadow: 1 }}>
+                <CardContent sx={{ padding: "16px !important" }}>
+                  <Box display="flex" alignItems="center">
                     <ErrorOutline sx={{ color: "error.main", mr: 1 }} />
                     <Typography
                       variant="h6"
@@ -625,9 +673,9 @@ const AdminNew: React.FC = () => {
               </Card>
 
               {/* Credit Check */}
-              <Card sx={{ mb: 2, boxShadow: 1 }}>
-                <CardContent>
-                  <Box display="flex" alignItems="center" mb={1}>
+              <Card sx={{ mb: 1, boxShadow: 1 }}>
+                <CardContent sx={{ padding: "16px !important" }}>
+                  <Box display="flex" alignItems="center">
                     <CheckCircle sx={{ color: "success.main", mr: 1 }} />
                     <Typography
                       variant="h6"
@@ -640,9 +688,9 @@ const AdminNew: React.FC = () => {
               </Card>
 
               {/* Social Media */}
-              <Card sx={{ mb: 2, boxShadow: 1 }}>
-                <CardContent>
-                  <Box display="flex" alignItems="center" mb={1}>
+              <Card sx={{ mb: 1, boxShadow: 1 }}>
+                <CardContent sx={{ padding: "16px !important" }}>
+                  <Box display="flex" alignItems="center">
                     <CheckCircle sx={{ color: "success.main", mr: 1 }} />
                     <Typography
                       variant="h6"
@@ -655,9 +703,9 @@ const AdminNew: React.FC = () => {
               </Card>
 
               {/* Application */}
-              <Card sx={{ mb: 2, boxShadow: 1 }}>
-                <CardContent>
-                  <Box display="flex" alignItems="center" mb={1}>
+              <Card sx={{ mb: 1, boxShadow: 1 }}>
+                <CardContent sx={{ padding: "16px !important" }}>
+                  <Box display="flex" alignItems="center">
                     <ErrorOutline sx={{ color: "error.main", mr: 1 }} />
                     <Typography
                       variant="h6"

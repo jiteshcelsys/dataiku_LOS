@@ -35,24 +35,11 @@ export const LoginForm: React.FC = () => {
     }
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setError("");
-
-  //   const success = await login(email, password);
-  //   if (success) {
-  //     navigate("/dashboard");
-  //   } else {
-  //     setError(
-  //       "Invalid email or password. Try admin@celestial.com / admin123 or user@example.com / user123"
-  //     );
-  //   }
-  // };
-
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        height: "calc(100vh - 64px )",
+        overflow: "hidden",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -114,7 +101,7 @@ export const LoginForm: React.FC = () => {
                 to="/register"
                 sx={{ textDecoration: "none" }}
               >
-                Sign up here
+                Sign Up here
               </MuiLink>
             </Typography>
           </Box>
