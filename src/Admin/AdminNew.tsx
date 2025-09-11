@@ -209,7 +209,7 @@ const AdminNew: React.FC = () => {
             {/* Left Section */}
             <Box
               sx={{
-                // bgcolor: "#5C6BC0", // purple shade
+                bgcolor: "#ffffff", // purple shade
                 px: 2,
                 py: 0,
                 fontWeight: 100,
