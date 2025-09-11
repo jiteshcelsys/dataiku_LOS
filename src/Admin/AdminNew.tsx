@@ -209,16 +209,28 @@ const AdminNew: React.FC = () => {
             {/* Left Section */}
             <Box
               sx={{
-                bgcolor: "#5C6BC0", // purple shade
+                // bgcolor: "#5C6BC0", // purple shade
                 px: 2,
-                py: 1,
-                fontWeight: 600,
+                py: 0,
+                fontWeight: 100,
                 color: "white",
                 flex: "0 0 auto",
+                display: "flex",
+                alignItems: "center", // center logo vertically
               }}
               onClick={handleDSportal}
             >
-              DS Portal
+              <img
+                style={{
+                  height: "40px", // fixed bar height
+                  width: "auto", // scale width proportionally
+                  objectFit: "contain",
+                  display: "block",
+                  // py:0,
+                }}
+                alt="Logo"
+                src="/download.png"
+              />
             </Box>
 
             {/* Right Section */}
@@ -232,7 +244,7 @@ const AdminNew: React.FC = () => {
                 flex: 1, // take remaining space
               }}
             >
-              Thentia Design
+              CLOS
             </Box>
           </Toolbar>
         </AppBar>
