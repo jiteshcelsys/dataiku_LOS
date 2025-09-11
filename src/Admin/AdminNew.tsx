@@ -424,58 +424,103 @@ const AdminNew: React.FC = () => {
                             {/* Labels column */}
                             {/* @ts-ignore */}
                             <Grid item xs={12} sm={4}>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Name:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Name:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  John Doe
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Date of Birth:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Date of Birth:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  November 1, 1991
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: 2,
+                                }}
                               >
-                                Mailing Address:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Phone:
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Email:
-                              </Typography>
-                            </Grid>
-
-                            {/* Values column */}
-                            {/* @ts-ignore */}
-                            <Grid item xs={12} sm={8}>
-                              <Typography variant="body2" fontWeight={500}>
-                                John Doe
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                November 1, 1991
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                25 Sheppard Avenue, Suite 100
-                                <br />
-                                Toronto, ON M2N 6S6
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                647-555-5555
-                              </Typography>
-                              <Typography variant="body2" fontWeight={500}>
-                                john.doe@email.com
-                              </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Mailing Address:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  25 Sheppard Avenue, Suite 100
+                                  <br />
+                                  Toronto, ON M2N 6S6
+                                </Typography>
+                              </Box>
+                              <Box sx={{ display: "flex", gap: 2 }}>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Phone:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  647-555-5555
+                                </Typography>
+                              </Box>
+                              <Box sx={{ display: "flex", gap: 2 }}>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  width="40%"
+                                >
+                                  Email:
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  fontWeight={500}
+                                  width="60%"
+                                >
+                                  john.doe@gmail.com
+                                </Typography>
+                              </Box>
                             </Grid>
                           </Grid>
                         </Box>
