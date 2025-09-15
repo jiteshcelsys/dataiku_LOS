@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       sx={{
         bgcolor: "#FFFFFF",
         borderRadius: 0,
