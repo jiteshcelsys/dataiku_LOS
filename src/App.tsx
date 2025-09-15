@@ -104,12 +104,12 @@ function App() {
               <Route
                 path="/admin/*"
                 element={
-                  <ProtectedRoute requireRole="admin">
-                    {/* <AdminLayout> */}
+                  <div style={{ display: "flex" }}>
                     <Navigation_Sidebar />
-                    <AdminRoutes />
-                    {/* </AdminLayout> */}
-                  </ProtectedRoute>
+                    <div style={{ flex: 1 }}>
+                      <AdminRoutes />
+                    </div>
+                  </div>
                 }
               />
 
