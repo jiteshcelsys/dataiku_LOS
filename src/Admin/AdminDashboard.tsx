@@ -6,14 +6,13 @@ import {
   Clock,
   ExternalLink,
   FileDown,
-  Home,
   Search,
-  Users,
   X,
   Menu,
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Navigation_Sidebar from "./SideBar";
 
 export default function AdminDashboard() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -64,29 +63,6 @@ export default function AdminDashboard() {
       subtitle: "Due to various reasons",
       icon: X,
       bgColor: "#ffffff",
-    },
-  ];
-
-  const navigationItems = [
-    {
-      label: "Loan Applications",
-      icon: Home,
-      active: true,
-    },
-    {
-      label: "Alert Inbox",
-      icon: Users,
-      active: false,
-    },
-    {
-      label: "Analytics & Reports",
-      icon: BarChart3,
-      active: false,
-    },
-    {
-      label: "Admin New",
-      icon: BarChart3,
-      active: false,
     },
   ];
 
@@ -165,144 +141,6 @@ export default function AdminDashboard() {
     },
   ];
 
-  const handleNavigationClick = (item: string): void => {
-    console.log(item);
-    if (item === "Alert Inbox") {
-      navigate("/admin/alert");
-    } else if (item === "Analytics & Reports") {
-      navigate("/admin/analytics");
-    } else if (item === "Admin New") {
-      navigate("/admin/adminNew");
-    }
-  };
-
-  const sidebarStyle = {
-    width: isMobile ? "100%" : "256px",
-    height: "100%",
-    backgroundColor: "white",
-    borderRight: "1px solid #dee1e6",
-    display: "flex",
-    flexDirection: "column",
-  };
-
-  const drawer = (
-    <div style={sidebarStyle as React.CSSProperties}>
-      <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
-        <img
-          style={{
-            width: "100%",
-            maxWidth: "198px",
-            height: "52px",
-            objectFit: "contain",
-          }}
-          alt="Logo"
-          src="/download.png"
-        />
-        <Typography
-          variant="body2"
-          sx={{
-            fontWeight: 600,
-            color: "#6B6B6B",
-            fontSize: 18,
-          }}
-        >
-          CELESTIAL SYSTEMS
-        </Typography>
-      </div>
-
-      <nav style={{ padding: "0 16px", flex: 1 }}>
-        {navigationItems.map((item, index) => {
-          const IconComponent = item.icon;
-          return (
-            <div key={index} style={{ marginBottom: "4px" }}>
-              <button
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "12px 16px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  borderRadius: "8px",
-                  border: "none",
-                  cursor: "pointer",
-                  backgroundColor: item.active ? "#FFFFFF" : "transparent",
-                  color: item.active ? "#1e2128" : "#565d6d",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  if (!item.active) {
-                    (e.target as HTMLButtonElement).style.backgroundColor =
-                      "#f9f9f9";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!item.active) {
-                    (e.target as HTMLButtonElement).style.backgroundColor =
-                      "transparent";
-                  }
-                }}
-                onClick={() => handleNavigationClick(item.label)}
-              >
-                <IconComponent size={20} style={{ marginRight: "12px" }} />
-                {item.label}
-              </button>
-            </div>
-          );
-        })}
-      </nav>
-
-      {!isMobile && (
-        <Box sx={{ p: 2, borderTop: "1px solid #dee1e6" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box sx={{ position: "relative" }}>
-              <Avatar
-                src="/rectangle-6.png"
-                sx={{ width: 40, height: 40, bgcolor: "#fce1fc" }}
-              >
-                AU
-              </Avatar>
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: -2,
-                  right: -2,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "#25984d",
-                  borderRadius: "50%",
-                  border: "1.5px solid white",
-                }}
-              />
-            </Box>
-            <Box sx={{ ml: 1.5 }}>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 600,
-                  color: "#171a1f",
-                  fontSize: 14,
-                }}
-              >
-                Admin User
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 400,
-                  color: "#565d6d",
-                  fontSize: 14,
-                }}
-              >
-                Online
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      )}
-    </div>
-  );
-
   const getGridCols = () => {
     if (isMobile) return 1;
     if (isTablet) return 2;
@@ -313,11 +151,6 @@ export default function AdminDashboard() {
     if (isMobile) return 1;
     if (isTablet) return 2;
     return 4;
-  };
-  const handleLogout = () => {
-    // logout();
-    navigate("/login");
-    // handleMenuClose();
   };
 
   return (
@@ -331,7 +164,7 @@ export default function AdminDashboard() {
       }}
     >
       {/* Mobile Sidebar Overlay */}
-      {mobileOpen && isMobile && (
+      {/* {mobileOpen && isMobile && (
         <div
           style={{
             position: "fixed",
@@ -355,10 +188,11 @@ export default function AdminDashboard() {
             {drawer}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Desktop Sidebar */}
-      {!isMobile && drawer}
+      {/* {!isMobile && drawer} */}
+      {/* <Navigation_Sidebar /> */}
 
       {/* Main Content */}
       <div
@@ -369,7 +203,7 @@ export default function AdminDashboard() {
           overflow: "hidden",
         }}
       >
-        {/* Top Navigation */}
+        {/* Top Navigation
         <header
           style={{
             height: "64px",
@@ -446,7 +280,7 @@ export default function AdminDashboard() {
               />
             </div>
           </div>
-        </header>
+        </header> */}
 
         {/* Content Area */}
         <main

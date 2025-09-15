@@ -182,9 +182,9 @@ const AdminNew: React.FC = () => {
   const [otherRegulatorsOpen, setOtherRegulatorsOpen] = useState(false);
   const [Application, setApplication] = useState(false);
   const navigate = useNavigate();
-  const handleDSportal = () => {
-    navigate("/admin/dashboard");
-  };
+  // const handleDSportal = () => {
+  //   console.log("hellog");
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -218,7 +218,7 @@ const AdminNew: React.FC = () => {
                 display: "flex",
                 alignItems: "center", // center logo vertically
               }}
-              onClick={handleDSportal}
+              // onClick={handleDSportal}
             >
               <img
                 style={{

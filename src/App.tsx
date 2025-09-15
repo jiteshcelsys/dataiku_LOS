@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -27,6 +28,7 @@ import AdminDashboard from "./Admin/AdminDashboard";
 import AdminNew from "./Admin/AdminNew";
 
 import theme from "../src/theme"; // your theme.ts
+import Navigation_Sidebar from "./Admin/SideBar";
 
 function App() {
   return (
@@ -104,6 +106,7 @@ function App() {
                 element={
                   <ProtectedRoute requireRole="admin">
                     {/* <AdminLayout> */}
+                    <Navigation_Sidebar />
                     <AdminRoutes />
                     {/* </AdminLayout> */}
                   </ProtectedRoute>
@@ -122,12 +125,19 @@ function App() {
 // Dashboard Router Component
 const DashboardRouter: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
+  console.log(user?.role === "admin");
   if (user?.role === "admin") {
-    return <AdminDashboard />;
+    // return <AdminDashboard />;
+    navigate("/admin");
+    // return <Navigation_Sidebar />;
+  } else if (user?.role === "user") {
+    navigate("/dashboard");
   }
+  return <LoginForm />;
 
-  return <UserDashboard />;
+  // return <UserDashboard />;
 };
 
 // Admin Routes Component
