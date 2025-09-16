@@ -181,10 +181,6 @@ const AdminNew: React.FC = () => {
   const [fsraHistoryOpen, setFsraHistoryOpen] = useState(false);
   const [otherRegulatorsOpen, setOtherRegulatorsOpen] = useState(false);
   const [Application, setApplication] = useState(false);
-  const navigate = useNavigate();
-  // const handleDSportal = () => {
-  //   console.log("hellog");
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -200,7 +196,13 @@ const AdminNew: React.FC = () => {
         <AppBar
           position="fixed"
           elevation={0}
-          sx={{ bgcolor: "transparent", minHeight: "fit-content !important" }}
+          sx={{
+            bgcolor: "transparent",
+            minHeight: "fit-content !important",
+            ml: "256px", // ✅ offset for sidebar
+            width: `calc(100% - 256px)`, // ✅ avoid hiding behind sidebar
+            zIndex: (theme) => theme.zIndex.drawer + 1, // ✅ keep on top
+          }}
         >
           <Toolbar
             disableGutters
