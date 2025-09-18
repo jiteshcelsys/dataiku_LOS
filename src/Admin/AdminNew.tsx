@@ -192,65 +192,6 @@ const AdminNew: React.FC = () => {
           height: "100vh",
         }}
       >
-        {/* Header */}
-        <AppBar
-          position="fixed"
-          elevation={0}
-          sx={{
-            bgcolor: "transparent",
-            minHeight: "fit-content !important",
-            ml: "256px", // ✅ offset for sidebar
-            width: `calc(100% - 256px)`, // ✅ avoid hiding behind sidebar
-            zIndex: (theme) => theme.zIndex.drawer + 1, // ✅ keep on top
-          }}
-        >
-          <Toolbar
-            disableGutters
-            sx={{ p: 0, minHeight: "fit-content !important" }}
-          >
-            {/* Left Section */}
-            <Box
-              sx={{
-                bgcolor: "#ffffff", // purple shade
-                px: 2,
-                py: 0,
-                fontWeight: 100,
-                color: "white",
-                flex: "0 0 auto",
-                display: "flex",
-                alignItems: "center", // center logo vertically
-              }}
-              // onClick={handleDSportal}
-            >
-              <img
-                style={{
-                  height: "40px", // fixed bar height
-                  width: "auto", // scale width proportionally
-                  objectFit: "contain",
-                  display: "block",
-                  // py:0,
-                }}
-                alt="Logo"
-                src="/download.png"
-              />
-            </Box>
-
-            {/* Right Section */}
-            <Box
-              sx={{
-                bgcolor: "#0097A7", // teal shade
-                px: 2,
-                py: 1,
-                fontWeight: 600,
-                color: "white",
-                flex: 1, // take remaining space
-              }}
-            >
-              CLOS
-            </Box>
-          </Toolbar>
-        </AppBar>
-
         <Container
           maxWidth={false}
           sx={{

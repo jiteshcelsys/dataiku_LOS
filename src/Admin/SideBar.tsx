@@ -168,10 +168,11 @@ function Navigation_Sidebar() {
           sx={{
             bgcolor: "white",
             color: "black",
-            zIndex: (theme) => theme.zIndex.drawer + 1, // ✅ keep above Drawer
+            display: "inline-block", // 👈 only as wide as children
+            boxShadow: "none", // optional
           }}
         >
-          <Toolbar sx={{ pl: 1, pr: 1 }}>
+          <Toolbar sx={{ pl: 1, pr: 1, minHeight: "40px" }}>
             {" "}
             {/* ✅ compact spacing */}
             <IconButton
@@ -180,6 +181,32 @@ function Navigation_Sidebar() {
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <MenuIcon />
+              <Box
+                sx={{
+                  bgcolor: "#ffffff", // purple shade
+                  px: 2,
+                  py: 0,
+                  fontWeight: 100,
+                  color: "white",
+                  flex: "0 0 auto",
+                  display: "flex",
+                  alignItems: "center", // center logo vertically
+                }}
+                // onClick={handleDSportal}
+              >
+                <img
+                  style={{
+                    height: "40px", // fixed bar height
+                    width: "auto", // scale width proportionally
+                    objectFit: "contain",
+                    display: "block",
+                    // py:0,
+                  }}
+                  alt="Logo"
+                  src="/download.png"
+                />
+              </Box>
+              CLOS
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -208,16 +235,16 @@ function Navigation_Sidebar() {
       </Drawer>
 
       {/* Content area */}
-      <Box
+      {/* <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
           mt: isCollapsed ? 8 : 0, // push content down if AppBar exists
         }}
-      >
-        {/* Your page content */}
-      </Box>
+      > */}
+      {/* Your page content */}
+      {/* </Box> */}
     </Box>
   );
 }
