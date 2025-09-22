@@ -18,7 +18,6 @@ export default function AdminDashboard() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const checkScreenSize = () => {
