@@ -40,26 +40,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-// import AvatarI from "../assets/avatar.jpg";
 
-const navigationItems = [
-  {
-    label: "Loan Applications",
-    icon: Home,
-    active: false,
-  },
-  {
-    label: "Alert Inbox",
-    icon: Users,
-    active: true,
-  },
-  {
-    label: "Analytics & Reports",
-    icon: BarChart3,
-    active: false,
-  },
-];
+// import AvatarI from "../assets/avatar.jpg";
 
 const dashboardMetrics = [
   { title: "Total Alerts", value: "6", subtitle: "All time", icon: Bell },
@@ -165,21 +147,11 @@ const footerLinks = [
 ];
 
 export const AdminAlertInbox = (): JSX.Element => {
-  const navigate = useNavigate();
-  const handleNavigationClick = (item: string): void => {
-    console.log(item);
-    if (item === "Alert Inbox") {
-      navigate("/admin/alert");
-    } else if (item === "Analytics & Reports") {
-      navigate("/admin/analytics");
-    } else if (item === "Loan Applications") {
-      navigate("/admin/dashboard");
-    }
-  };
   return (
     <Box sx={{ display: "flex", height: "100vh", bgcolor: "white" }}>
       {/* Sidebar */}
-      <Drawer
+
+      {/* <Drawer
         variant="permanent"
         sx={{
           width: 256,
@@ -193,7 +165,7 @@ export const AdminAlertInbox = (): JSX.Element => {
         }}
       >
         {/* Logo */}
-        <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
+      {/* <div style={{ padding: "24px", display: "flex", flexDirection: "row" }}>
           <img
             style={{
               width: "100%",
@@ -215,10 +187,10 @@ export const AdminAlertInbox = (): JSX.Element => {
           >
             CELESTIAL SYSTEMS
           </Typography>
-        </div>
+        </div> */}
 
-        {/* Navigation */}
-        <List sx={{ flexGrow: 1, px: 1 }}>
+      {/* Navigation */}
+      {/* <List sx={{ flexGrow: 1, px: 1 }}>
           {navigationItems.map((item, index) => {
             const IconComponent = item.icon;
             return (
@@ -249,10 +221,10 @@ export const AdminAlertInbox = (): JSX.Element => {
               </ListItem>
             );
           })}
-        </List>
+        </List> */}
 
-        {/* New Alert Button */}
-        <Box sx={{ px: 2, mb: 2 }}>
+      {/* New Alert Button */}
+      {/* <Box sx={{ px: 2, mb: 2 }}>
           <Button
             fullWidth
             variant="contained"
@@ -268,10 +240,10 @@ export const AdminAlertInbox = (): JSX.Element => {
           >
             New Alert
           </Button>
-        </Box>
+        </Box> */}
 
-        {/* User Profile */}
-        <Box sx={{ p: 2, borderTop: "1px solid #dee1e6" }}>
+      {/* User Profile */}
+      {/* <Box sx={{ p: 2, borderTop: "1px solid #dee1e6" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box sx={{ position: "relative" }}>
               <Avatar
@@ -316,8 +288,9 @@ export const AdminAlertInbox = (): JSX.Element => {
               </Typography>
             </Box>
           </Box>
-        </Box>
-      </Drawer>
+        </Box> */}
+      {/* </Drawer> */}
+      {/* <Navigation_Sidebar /> */}
 
       {/* Main Content */}
       <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
